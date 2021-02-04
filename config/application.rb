@@ -10,6 +10,12 @@ module MyPlan
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    # addition
+    config.time_zone = 'Tokyo'
+    config.generators do |g|
+      g.helper false
+      g.test_framework false
+    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
