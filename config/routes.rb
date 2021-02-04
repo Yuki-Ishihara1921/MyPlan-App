@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: 'home#index'
+
+  namespace :api, {format: 'json'} do
+    resources :users, only: [:create, :update]
+    post 'sessions', to: 'sessions#create'
+    resources :plans, only: [:index, :show, :create, :update, :destroy] do
+      resources :outlines, :details, only: [:index, :create, :update, :destroy]
+      patch 'outlines', to: 'outlines#sort'
+      patch 'details', to: 'details#sort'
+    end
+  end
 end
