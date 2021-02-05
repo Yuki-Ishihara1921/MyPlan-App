@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <main>
         <app-name />
         <auth-sign-in />
         <auth-sign-up />
-    </div>
+    </main>
 </template>
 
 <script>
@@ -20,7 +20,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

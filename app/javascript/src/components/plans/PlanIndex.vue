@@ -2,13 +2,13 @@
     <main class="container">
         <app-spinner v-if="isLoading" />
         <div v-else class="row">
-            <div class="plan__contents col-lg-6 my-5" v-for="plan in plans" v-bind:key="plan.id">
-                <div class="plan__content-header" />
-                <div class="plan__content-main">
-                    <div class="main--planInfo">
+            <section class="plan__container col-lg-6" v-for="plan in plans" :key="plan.id">
+                <div class="plan__header" />
+                <div class="plan__content">
+                    <div class="plan__content--info">
                         <div>
                             <input v-if="editPlanId===plan.id" type="text" v-model="editPlan.name" style="height: 50px;">
-                            <h3 v-else>{{plan.name}}</h3>
+                            <h4 v-else>{{plan.name}}</h4>
                         </div>
                         <div class="d-flex w-100 border-top">
                             <div class="w-35 border-right">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex m-2">
+                    <div class="plan__content--commands">
                         <router-link :to="{name: 'PageDetailList', params: {id: plan.id}}" class="mr-auto">
                             <button class="btn btn-success">詳細ページ</button>
                         </router-link>
@@ -49,9 +49,9 @@
                         </router-link>
                     </div>
                 </div>
-            </div>
+            </section>
+            <plan-new :getPlans="getPlans" />
         </div>
-        <plan-new :getPlans="getPlans" />
     </main>
 </template>
 
@@ -60,8 +60,10 @@ import axios from 'axios'
 import moment from 'moment'
 import { AppSpinner } from '../parts'
 import PlanNew from './PlanNew'
+
 export default {
     components: { AppSpinner, PlanNew },
+    
     data () {
         return {
             plans: [],
@@ -72,6 +74,7 @@ export default {
             isLoading: true
         }
     },
+
     filters: {
         moment_date (date) {
             if (date === null) {
@@ -81,9 +84,11 @@ export default {
             }
         }
     },
+
     mounted () {
         this.getPlans()
     },
+
     methods: {
         getPlans () {
             axios
@@ -96,6 +101,7 @@ export default {
                 this.editPlanId = -1
             })
         },
+
         openEditInput (plan_id) {
             for (var plan of this.plans) {
                 if (plan.id === plan_id) {
@@ -104,13 +110,14 @@ export default {
                 }
             }
         },
+
         updatePlan (plan_id) {
             const res = window.confirm("こちらの内容で更新しますか？")
             if (!res) {
                 return false
             } else {
                 if (this.editPlan.name === "") {
-                    alert("プラン名がありません。")
+                    alert("プラン名を入力して下さい。")
                 } else {
                     axios
                     .put(`/api/plans/${plan_id}`, this.editPlan, {
@@ -121,9 +128,14 @@ export default {
                         this.getPlans()
                         window.scrollTo({ top: 0 })
                     })
+                    .catch((error) => {
+                        alert("更新が完了しませんでした。通信環境をご確認下さい。")
+                        return false
+                    })
                 }
             }
         },
+
         deletePlan (plan_id) {
             const res = window.confirm("こちらのプランを削除しますか？")
             if (!res) {
@@ -136,39 +148,50 @@ export default {
                 .then(() => {
                     this.getPlans()
                 })
+                .catch(() => {
+                    alert("削除できませんでした。通信環境をご確認下さい。")
+                    return false
+                })
             }
         }
     }
 }
 </script>
 
-<style scoped>
-h3, p {
-    margin: 10px 5px;
-    overflow: hidden;
+<style lang='scss' scoped>
+.plan__container {
+    max-width: 600px;
+    margin: 30px auto;
 }
-input {
-    width: 100%;
-    height: 100%;
-}
-.main--planInfo {
-    border: 5px solid gainsboro;
-    text-align: center;
-}
-.plan__content-header {
+.plan__header {
     width: 50%;
     height: 35px;
     margin: auto;
     border: 10px solid blanchedalmond;
     border-bottom: 0;
 }
-.plan__content-main {
-    background: floralwhite;
-    box-shadow: 0 2px 2px;
+.plan__content {
     border: 10px solid blanchedalmond;
     border-radius: 10px;
+    box-shadow: 0 2px 2px;
+    background: floralwhite;
+    &--info {
+        border: 5px solid gainsboro;
+        text-align: center;
+    }
+    &--commands {
+        display: flex;
+        margin: 0.5rem;
+    }
 }
 .w-35 {
     width: 35%;
+}
+input {
+    width: 100%;
+    height: 100%;
+}
+h4, p {
+    margin: 10px 5px;
 }
 </style>

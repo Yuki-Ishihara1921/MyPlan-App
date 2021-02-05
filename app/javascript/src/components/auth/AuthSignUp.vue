@@ -1,22 +1,24 @@
 <template>
-    <div class="m-3 text-center">
-        <a href="#" @click.prevent.stop="showModal()">ユーザー作成はこちら</a>
-        <modal name="modal-signup" @closed="hideModal">
-            <h3 class="text-primary">アカウント登録</h3>
-            <form>
-                <div class="form-group">
-                    <input class="form-control w-100 m-auto" type="text" v-model="newUser.name" placeholder="ユーザー名">
-                </div>
-                <div class="form-group">
-                    <input class="form-control w-100 m-auto" type="password" v-model="newUser.password" placeholder="パスワード">
-                </div>
-                <div class="form-group">
-                    <input class="form-control w-100 m-auto" type="password" v-model="newUser.password_confirmation" placeholder="パスワード(確認用)">
-                </div>
-                <button class="btn btn-success" @click="userSignUp()">登録</button>
-            </form>
-            <div class="m-3">
-                <a href="#" @click.prevent.stop="hideModal()">ログインに戻る</a>
+    <div class="signUp">
+        <a href="#" @click.prevent.stop="showModal()">アカウント登録はこちら</a>
+        <modal name="modal--signUp">
+            <div class="px-5">
+                <h4 class="m-3 text-primary">アカウント登録</h4>
+                <form>
+                    <div class="form-group d-flex">
+                        <font-awesome-icon icon="user-circle" class="icon--auth" />
+                        <input class="form-control" type="text" v-model="newUser.name" placeholder="ユーザー名">
+                    </div>
+                    <div class="form-group d-flex">
+                        <font-awesome-icon icon="key" class="icon--auth" />
+                        <input class="form-control" type="password" v-model="newUser.password" placeholder="パスワード">
+                    </div>
+                    <div class="form-group d-flex">
+                        <font-awesome-icon icon="key" class="icon--auth" />
+                        <input class="form-control" type="password" v-model="newUser.password_confirmation" placeholder="パスワード(確認用)">
+                    </div>
+                    <button class="btn btn-success m-auto" @click="userSignUp()">登録</button>
+                </form>
             </div>
         </modal>
     </div>
@@ -41,34 +43,43 @@ export default {
             if (newUser.name === "" || newUser.password === "" || newUser.password_confirmation === "") {
                 alert("未入力の項目があります。")       
                 return false
-            } else if (newUser.password !== newUser.password_confirmation) {
+            }
+            if (newUser.password !== newUser.password_confirmation) {
                 alert("パスワードが一致しておりません。")
                 return false
-            } else {
-                axios
-                .post('/api/users', newUser)
-                .then(response => {
-                    const data = response.data
+            }
+            axios
+            .post('/api/users', newUser)
+            .then(response => {
+                const data = response.data
+                if (data) {
                     this.$cookies.set('user', data.user)
                     this.$cookies.set('usertoken', data.token)
                     this.$router.push({ name: 'PagePlans' })
                     alert("アカウントが登録されました！")
-                })
-            }
+                }
+            })
+            .catch((error) => {
+                alert("登録されませんでした。通信環境をご確認下さい。")
+                throw new Error(error)
+            })
         },
 
         showModal () {
-            this.$modal.show("modal-signup")
-        },
-
-        hideModal () {
             this.newUser = { name: "", password: "", password_confirmation: "" }
-            this.$modal.hide("modal-signup")
+            this.$modal.show("modal--signUp")
         }
     }
 }
 </script>
 
 <style scoped>
-
+.signUp {
+    margin: 1rem;
+    text-align: center;
+}
+.icon--auth {
+    margin: auto 10px auto 0;
+    font-size: 20px;
+}
 </style>

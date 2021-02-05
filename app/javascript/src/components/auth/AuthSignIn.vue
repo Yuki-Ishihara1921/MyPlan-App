@@ -1,12 +1,14 @@
 <template>
     <div class="signIn">
-        <font-awesome-icon icon="user" class="icon-user" />
+        <font-awesome-icon icon="user" class="icon--user" />
         <form>
-            <div class="form-group">
-                <input class="form-control m-auto" type="text" v-model="user.name" placeholder="ユーザー名" @keyup.enter="userSignIn()">
+            <div class="form-group d-flex">
+                <font-awesome-icon icon="user-circle" class="icon--auth" />
+                <input class="form-control" type="text" v-model="user.name" placeholder="ユーザー名" @keyup.enter="userSignIn()">
             </div>
-            <div class="form-group">
-                <input class="form-control m-auto" type="password" v-model="user.password" placeholder="パスワード" @keyup.enter="userSignIn()">
+            <div class="form-group d-flex">
+                <font-awesome-icon icon="key" class="icon--auth" />
+                <input class="form-control" type="password" v-model="user.password" placeholder="パスワード" @keyup.enter="userSignIn()">
             </div>
         </form>
         <button class="btn btn-success" @click="userSignIn()">ログイン</button>
@@ -30,20 +32,20 @@ export default {
             const user = this.user
             if (user.name === "" || user.password === "") {
                 alert("未入力の項目があります。")
-            } else {
-                axios
-                .post('/api/sessions', this.user)
-                .then(response => {
-                    const data = response.data
-                    this.$cookies.set('user', data.user)
-                    this.$cookies.set('usertoken', data.token)
-                    this.$router.push({ name: 'PagePlanList' })
-                })
-                .catch((error) => {
-                    alert("ログインに失敗しました。通信環境をご確認下さい。")
-                    throw new Error(error)
-                })
+                return false
             }
+            axios
+            .post('/api/sessions', this.user)
+            .then(response => {
+                const data = response.data
+                this.$cookies.set('user', data.user)
+                this.$cookies.set('usertoken', data.token)
+                this.$router.push({ name: 'PagePlanList' })
+            })
+            .catch((error) => {
+                alert("ログインに失敗しました。通信環境をご確認下さい。")
+                throw new Error(error)
+            })
         }
     }
 }
@@ -55,7 +57,7 @@ export default {
     margin: auto;
     text-align: center;
 }
-.icon-user {
+.icon--user {
     width: 100px !important;
     margin: 1rem;
     padding: 20px;
@@ -64,5 +66,9 @@ export default {
     background: #fff;
     color: cadetblue;
     font-size: 100px;
+}
+.icon--auth {
+    margin: auto 10px auto 0;
+    font-size: 20px;
 }
 </style>

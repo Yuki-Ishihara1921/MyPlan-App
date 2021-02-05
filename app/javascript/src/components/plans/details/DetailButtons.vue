@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="button-fixed--sort">
+        <div class="detailButton -sort">
             <button id="sort" class="btn btn-info btn-lg rounded-circle" @click="changeIsDraggable()" :class="{'btn-danger': isDraggable}">⇅</button>
         </div>
-        <div class="button-fixed--add">
+        <div class="detailButton -add">
             <button class="btn btn-success btn-lg rounded-circle" @click="createRow()">＋</button>
         </div>
     </div>
@@ -11,12 +11,14 @@
 
 <script>
 import axios from 'axios'
+
 export default {
     props: {
         plan: {},
         isDraggable: false,
         changeIsDraggable: Function
     },
+
     methods: {
         createRow () {
             axios
@@ -36,15 +38,15 @@ export default {
 }
 </script>
 
-<style>
-.button-fixed--add {
-  position: fixed;
-  right: 20px;
-  bottom: 10px;
-}
-.button-fixed--sort {
-  position: fixed;
-  left: 20px;
-  bottom: 10px;
+<style lang='scss' scoped>
+.detailButton {
+    position: fixed;
+    bottom: 10px;
+    &.-sort {
+        left: 20px;
+    }
+    &.-add {
+        right: 20px;
+    }
 }
 </style>

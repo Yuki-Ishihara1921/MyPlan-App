@@ -37,10 +37,10 @@ export default {
             }
         },
         showModal() {
-            this.$modal.show("modal-userinfo")
+            this.$modal.show("modal--userinfo")
         },
         hideModal() {
-            this.$modal.hide("modal-userinfo")
+            this.$modal.hide("modal--userinfo")
             this.isOpen = false
         }
     }

@@ -1,36 +1,36 @@
 <template>
-    <table id="table" class="table table-bordered table-sm table-details" :class="{'draggable': isDraggable }">
+    <table id="table" class="table table-bordered table-sm detailTable" :class="{'draggable': isDraggable }">
         <thead class="thead-light text-center">
             <div>
                 <tr>
-                    <th class="w-datetime" scope="col">日付</th>
-                    <th class="w-datetime" scope="col">時間</th>
-                    <th class="w-schedule" cope="col">スケジュール</th>
-                    <th class="w-note" scope="col">メモ</th>
-                    <th class="w-delete" scope="col">消</th>
+                    <th class="detailTable-datetime" scope="col">日付</th>
+                    <th class="detailTable-datetime" scope="col">時間</th>
+                    <th class="detailTable-schedule" cope="col">スケジュール</th>
+                    <th class="detailTable-note" scope="col">メモ</th>
+                    <th class="detailTable-delete" scope="col">消</th>
                 </tr>
             </div>
         </thead>
         <tbody>
             <draggable v-model="plan.details" @end="sortTable()" :disabled="!isDraggable" animation="200">
-                <tr class="bg-white" v-for="detail in plan.details" v-bind:key="detail.id">
-                    <td class="w-datetime" @dblclick="openInputField(detail.id, 0)">
+                <tr class="bg-white" v-for="detail in plan.details" :key="detail.id">
+                    <td class="detailTable-datetime" @dblclick="openInputField(detail.id, 0)">
                         <input v-if="editRowId===detail.id && editColumnId===0" v-model="editDetail.date" @blur="updateField(detail.id)">
                         <p v-else>{{detail.date}}</p>
                     </td>
-                    <td class="w-datetime" @dblclick="openInputField(detail.id, 1)">
+                    <td class="detailTable-datetime" @dblclick="openInputField(detail.id, 1)">
                         <input type="time" v-if="editRowId===detail.id && editColumnId===1" v-model="editDetail.time" @blur="updateField(detail.id)">
                         <p v-else>{{detail.time | moment_time}}</p>
                     </td>
-                    <td class="w-schedule px-2" @dblclick="openInputField(detail.id, 2)">
+                    <td class="detailTable-schedule px-2" @dblclick="openInputField(detail.id, 2)">
                         <textarea v-if="editRowId===detail.id && editColumnId===2" v-model="editDetail.schedule" @blur="updateField(detail.id)" />
                         <p v-else>{{detail.schedule}}</p>
                     </td>
-                    <td class="w-note px-2" @dblclick="openInputField(detail.id, 3)">
+                    <td class="detailTable-note px-2" @dblclick="openInputField(detail.id, 3)">
                         <textarea v-if="editRowId===detail.id && editColumnId===3" v-model="editDetail.note" @blur="updateField(detail.id)" />
                         <p v-else>{{detail.note}}</p>
                     </td>
-                    <td class="w-delete">
+                    <td class="detailTable-delete">
                         <font-awesome-icon icon="times-circle" class="icon-times-style text-danger" @click="deleteRow(detail.id)" />
                     </td>
                 </tr>
@@ -42,6 +42,7 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+
 export default {
     data () {
         return {
@@ -55,6 +56,7 @@ export default {
             editColumnId: -1
         }
     },
+
     props: {
         plan: {
             details: []
@@ -62,6 +64,7 @@ export default {
         isDraggable: false,
         getPlan: Function
     },
+
     filters: {
         moment_time (time) {
             if (time === null) {
@@ -71,6 +74,7 @@ export default {
             }
         }
     },
+
     methods: {
         openInputField (id, column_id) {
             for (var detail of this.plan.details) {
@@ -81,6 +85,7 @@ export default {
             this.editRowId = id
             this.editColumnId = column_id
         },
+
         updateField (id) {
             axios
             .put(`/api/plans/${this.$route.params.id}/details/${id}`, this.editDetail)
@@ -94,6 +99,7 @@ export default {
                 throw new Error(error)
             })
         },
+
         deleteRow (id) {
             const res = window.confirm("こちらのラインを削除しますか？")
             if (!res) {
@@ -108,6 +114,7 @@ export default {
                 })
             }
         },
+
         sortTable () {
             axios
             .patch(`/api/plans/${this.$route.params.id}/details`, {
@@ -122,18 +129,44 @@ export default {
 }
 </script>
 
-<style scoped>
-.draggable {
-    border: 5px solid red !important;
-}
-.draggable tbody {
-    cursor: move;
-}
-.draggable tr:hover {
-    background: aliceblue !important;
-}
+<style lang='scss' scoped>
 .icon-times-style {
     cursor: pointer;
+}
+.detailTable {
+    border: 5px solid aquamarine;
+    &-datetime {
+        width: 90px;
+        text-align: center;
+        font-weight: bold;
+    }
+    &-schedule {
+        width: 330px;
+    }
+    &-note {
+        width: 250px;
+    }
+    &-delete {
+        width: 30px;
+        text-align: center;
+    }
+}
+.draggable {
+    border: 5px solid red !important;
+    & tbody {
+        cursor: move;
+    }
+    & tr:hover {
+        background: aliceblue !important;
+    }
+}
+.table {
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 8rem;
+    & td {
+        vertical-align: middle;
+    }
 }
 input, textarea {
     width: 100%;
@@ -141,31 +174,5 @@ input, textarea {
 p {
     margin: 0;
     white-space: pre-wrap;
-}
-.table {
-    max-width: 800px;
-    margin: auto;
-    margin-bottom: 8rem;
-}
-.table td {
-    vertical-align: middle;
-}
-.table-details {
-    border: 5px solid aquamarine;
-}
-.w-datetime {
-    width: 90px;
-    text-align: center;
-    font-weight: bold;
-}
-.w-schedule {
-    width: 330px;
-}
-.w-note {
-    width: 250px;
-}
-.w-delete {
-    width: 30px;
-    text-align: center;
 }
 </style>

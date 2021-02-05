@@ -29,9 +29,9 @@ Vue.use(BootstrapVue)
 
 /* fontawesome */
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser, faEdit, faCheck, faTrash, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faUserCircle, faKey, faEdit, faCheck, faTrash, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faUser, faEdit, faCheck, faTrash, faTimesCircle)
+library.add(faUser, faUserCircle, faKey, faEdit, faCheck, faTrash, faTimesCircle)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 export default {
@@ -40,13 +40,13 @@ export default {
 </script>
 
 <style>
-/*
 body {
   background: snow;
 }
-.btn:focus {
-  box-shadow: none !important;
+.vm--modal {
+  background: aliceblue;
 }
+/*
 .vm--modal {
   top: 5% !important;
   left: 0 !important;

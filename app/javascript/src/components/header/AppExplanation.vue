@@ -1,15 +1,15 @@
 <template>
     <span>
         <button class="btn btn-secondary rounded-circle" @click="showModal()">？</button>
-        <modal name="modal-AppExplanation">
+        <modal name="modal--AppExplanation">
             <h3 class="text-info">★How to Use★</h3>
-            <div v-if="isPagePlans">
+            <div v-if="isPagePlanList">
                 <img class="w-100" src="../../images/PagePlanList.png" alt="プラン一覧">
             </div>
-            <div v-if="isPageOutlines">
+            <div v-if="isPageOutlineList">
                 <img class="w-100" src="../../images/PageOutlineList.png" alt="アウトライン一覧">
             </div>
-            <div v-if="isPageDetails">
+            <div v-if="isPageDetailList">
                 <img class="w-100" src="../../images/PageDetailList.png" alt="ディテイル一覧">
             </div>
             <button class="btn btn-secondary w-25 mt-2" @click="hideModal()">戻る</button>
@@ -20,17 +20,17 @@
 <script>
 export default {
     props: {
-        isPagePlans: false,
-        isPageOutlines: false,
-        isPageDetails: false
+        isPagePlanList: false,
+        isPageOutlineList: false,
+        isPageDetailList: false
     },
     
     methods: {
         showModal() {
-            this.$modal.show("modal-AppExplanation")
+            this.$modal.show("modal--AppExplanation")
         },
         hideModal() {
-            this.$modal.hide("modal-AppExplanation")
+            this.$modal.hide("modal--AppExplanation")
         }
     }
 }

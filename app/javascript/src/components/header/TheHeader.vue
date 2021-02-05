@@ -1,9 +1,9 @@
 <template>
     <header id="header">
-        <slot name="page-name" />
+        <slot name="pageName" />
         <span class="menu__block">
             <user-info />
-            <app-explanation :isPagePlans="isPagePlans" :isPageOutlines="isPageOutlines" :isPageDetails="isPageDetails" />
+            <app-explanation :isPagePlanList="isPagePlanList" :isPageOutlineList="isPageOutlineList" :isPageDetailList="isPageDetailList" />
         </span>
     </header>
 </template>
@@ -14,9 +14,9 @@ import AppExplanation from './AppExplanation'
 export default {
     components: { UserInfo, AppExplanation },
     props: {
-        isPagePlans: false,
-        isPageOutlines: false,
-        isPageDetails: false
+        isPagePlanList: false,
+        isPageOutlineList: false,
+        isPageDetailList: false
     }
 }
 </script>

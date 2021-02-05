@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="button-fixed--add">
+        <div class="planNewButton">
             <button class="btn btn-info btn-lg rounded-circle" @click="showModal()">＋</button>
         </div>
-        <modal name="modal-plan--create">
+        <modal name="modal--plan--create">
             <form class="position-relative">
                 <h3>プラン作成</h3>
                 <div class="form-group">
@@ -33,6 +33,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
     data () {
         return {
@@ -44,9 +45,11 @@ export default {
             }
         }
     },
+
     props: {
         getPlans: Function
     },
+
     methods: {
         createPlan () {
             const res = window.confirm("こちらの内容でプランを作成しますか？")
@@ -60,7 +63,7 @@ export default {
                     .post(`api/plans`, this.newPlan, {
                         headers: { 'Authorization': this.$cookies.get('usertoken') }
                     })
-                    .then(response => {
+                    .then(() => {
                         this.hideModal()
                         this.getPlans()
                         this.newPlan = { name: "", start: "", end: "", days: "" }
@@ -69,23 +72,22 @@ export default {
                 }
             }
         },
+
         showModal () {
-            this.$modal.show("modal-plan--create")
+            this.$modal.show("modal--plan--create")
         },
+
         hideModal () {
-            this.$modal.hide("modal-plan--create")
+            this.$modal.hide("modal--plan--create")
         }
     }
 }
 </script>
 
 <style scoped>
-.form-group label {
-    margin: 0;
-}
-.form-buttons {
-    position: absolute;
-    right: 60px;
-    bottom: 0;
+.planNewButton {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
 }
 </style>
