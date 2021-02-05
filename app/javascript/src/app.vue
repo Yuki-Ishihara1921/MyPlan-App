@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <router-view />
 </template>
 
 <script>
@@ -40,6 +40,7 @@ export default {
 </script>
 
 <style>
+/*
 body {
   background: snow;
 }
@@ -58,4 +59,5 @@ body {
 .vm--modal h3 {
   text-align: center;
 }
+*/
 </style>

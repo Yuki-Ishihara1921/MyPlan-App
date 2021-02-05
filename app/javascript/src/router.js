@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Sample, Sample2, PageAuth } from './pages'
+import { PageAuth, PagePlanList, PageOutlineList, PageDetailList } from './pages'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
     routes: [
-        { path: '/', name: 'Sample', component: Sample },
-        { path: '/sample2', name: 'Sample2', component: Sample2 },
-        { path: '/signin', name: 'PageAuth', component: PageAuth }
+        { path: '/signin', name: 'PageAuth', component: PageAuth },
+        { path: '/', name: 'PagePlanList', component: PagePlanList },
+        { path: '/planlist/:id(\\d+)/outlines', name: 'PageOutlineList', component: PageOutlineList },
+        { path: '/planlist/:id(\\d+)/details', name: 'PageDetailList', component: PageDetailList }
     ]
 })
 
