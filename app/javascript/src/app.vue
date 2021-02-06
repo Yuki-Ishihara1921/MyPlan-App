@@ -43,21 +43,16 @@ export default {
 body {
   background: snow;
 }
-.vm--modal {
-  background: aliceblue;
+button {
+  box-shadow: 0px 3px 0px 0px #555;
 }
-/*
 .vm--modal {
-  top: 5% !important;
+  top: 0 !important;
   left: 0 !important;
+  width: 600px !important;
   height: auto !important;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 50px auto;
+  padding: 15px;
   background: aliceblue;
-  border-radius: 10px;
 }
-.vm--modal h3 {
-  text-align: center;
-}
-*/
 </style>

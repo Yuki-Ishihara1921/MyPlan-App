@@ -161,7 +161,7 @@ export default {
 <style lang='scss' scoped>
 .plan__container {
     max-width: 600px;
-    margin: 30px auto;
+    margin: 50px auto;
 }
 .plan__header {
     width: 50%;
@@ -190,6 +190,7 @@ export default {
 input {
     width: 100%;
     height: 100%;
+    padding: 10px;
 }
 h4, p {
     margin: 10px 5px;

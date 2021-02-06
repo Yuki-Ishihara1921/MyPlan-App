@@ -1,18 +1,20 @@
 <template>
     <header id="header">
         <slot name="pageName" />
-        <span class="menu__block">
-            <user-info />
+        <div class="header__menu">
             <app-explanation :isPagePlanList="isPagePlanList" :isPageOutlineList="isPageOutlineList" :isPageDetailList="isPageDetailList" />
-        </span>
+            <user-info />
+        </div>
     </header>
 </template>
 
 <script>
 import UserInfo from './UserInfo'
 import AppExplanation from './AppExplanation'
+
 export default {
     components: { UserInfo, AppExplanation },
+
     props: {
         isPagePlanList: false,
         isPageOutlineList: false,
@@ -24,15 +26,15 @@ export default {
 <style scoped>
 header {
     display: flex !important;
-    background: mistyrose;
     border-bottom: 5px solid gainsboro;
+    background: mistyrose;
 }
-.menu__block {
+.header__menu {
     position: relative;
     margin-left: auto;
     padding: 5px 10px;
-    background: aliceblue;
     border-left: 5px solid gainsboro;
+    background: aliceblue;
     text-align: center;
 }
 </style>
