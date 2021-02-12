@@ -141,13 +141,13 @@ export default {
         font-weight: bold;
     }
     &-schedule {
-        width: 330px;
+        min-width: 330px;
     }
     &-note {
-        width: 250px;
+        min-width: 250px;
     }
     &-delete {
-        width: 30px;
+        text-align: center;
     }
 }
 .draggable {
@@ -163,6 +163,9 @@ table {
     max-width: 800px;
     margin: auto;
     margin-bottom: 8rem;
+    & thead th {
+        vertical-align: middle;
+    }
     & td {
         vertical-align: middle;
     }

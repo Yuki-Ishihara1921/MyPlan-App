@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pageDetailList">
         <the-header :isPageDetailList="isPageDetailList">
             <h1 slot="pageName" class="mx-3 my-auto text-success">Plan Details</h1>
         </the-header>
@@ -79,3 +79,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.pageDetailList {
+    min-width: 750px;
+}
+</style>

@@ -2,8 +2,8 @@
     <header id="header">
         <slot name="pageName" />
         <div class="header__menu">
-            <app-explanation :isPagePlanList="isPagePlanList" :isPageOutlineList="isPageOutlineList" :isPageDetailList="isPageDetailList" />
             <user-info />
+            <app-explanation :isPagePlanList="isPagePlanList" :isPageOutlineList="isPageOutlineList" :isPageDetailList="isPageDetailList" />
         </div>
     </header>
 </template>

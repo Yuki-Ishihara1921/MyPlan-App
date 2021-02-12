@@ -100,6 +100,9 @@ export default {
                 this.isLoading = false
                 this.editPlanId = -1
             })
+            .catch(() => {
+                this.$router.push({ name: 'PageAuth' })
+            })
         },
 
         openEditInput (plan_id) {

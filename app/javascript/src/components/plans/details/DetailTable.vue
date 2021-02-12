@@ -136,18 +136,17 @@ export default {
 .detailTable {
     border: 5px solid aquamarine;
     &-datetime {
-        width: 90px;
+        width: 75px;
         text-align: center;
         font-weight: bold;
     }
     &-schedule {
-        width: 330px;
+        width: 362px;
     }
     &-note {
         width: 250px;
     }
     &-delete {
-        width: 30px;
         text-align: center;
     }
 }
@@ -164,6 +163,9 @@ export default {
     max-width: 800px;
     margin: auto;
     margin-bottom: 8rem;
+    & thead th {
+        vertical-align: middle;
+    }
     & td {
         vertical-align: middle;
     }

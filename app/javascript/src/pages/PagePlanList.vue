@@ -22,6 +22,7 @@ export default {
 
     beforeCreate () {
         const jwt = this.$cookies.get('usertoken')
+        console.log("jwt", jwt)
         if (!jwt) {
             this.$router.push({ name: 'PageAuth' })
         }

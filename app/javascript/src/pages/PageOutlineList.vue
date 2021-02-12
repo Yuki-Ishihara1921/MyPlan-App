@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pageOutlineList">
         <the-header :isPageOutlineList="isPageOutlineList">
             <h1 slot="pageName" class="mx-3 my-auto text-primary">Plan Outlines</h1>
         </the-header>
@@ -78,3 +78,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.pageOutlineList {
+    min-width: 750px;
+}
+</style>
