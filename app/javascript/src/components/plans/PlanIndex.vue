@@ -2,7 +2,10 @@
     <main class="container">
         <app-spinner v-if="isLoading" />
         <div v-else class="row">
-            <section class="plan__container col-lg-6" v-for="plan in plans" :key="plan.id">
+            <div v-if="plans.length === 0">
+                <h4 class="text-warning">プランを登録して下さい。</h4>
+            </div>
+            <section v-else class="plan__container col-lg-6" v-for="plan in plans" :key="plan.id">
                 <div class="plan__header" />
                 <div class="plan__content">
                     <div class="plan__content--info">

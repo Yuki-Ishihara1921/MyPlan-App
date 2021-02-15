@@ -3,8 +3,8 @@
         <font-awesome-icon icon="user" class="icon--user" />
         <form>
             <div class="form-group d-flex">
-                <font-awesome-icon icon="user-circle" class="icon--auth" />
-                <input class="form-control" type="text" v-model="user.name" placeholder="ユーザー名" @keyup.enter="userSignIn()">
+                <font-awesome-icon icon="envelope" class="icon--auth" />
+                <input class="form-control" type="email" v-model="user.email" placeholder="メールアドレス" @keyup.enter="userSignIn()">
             </div>
             <div class="form-group d-flex">
                 <font-awesome-icon icon="key" class="icon--auth" />
@@ -22,7 +22,7 @@ export default {
     data () {
         return {
             user: {
-                name: "",
+                email: "",
                 password: ""
             }
         }
@@ -30,7 +30,7 @@ export default {
     methods: {
         userSignIn () {
             const user = this.user
-            if (user.name === "" || user.password === "") {
+            if (user.email === "" || user.password === "") {
                 alert("未入力の項目があります。")
                 return false
             }
