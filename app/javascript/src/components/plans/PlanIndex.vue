@@ -1,81 +1,71 @@
 <template>
-    <main class="container">
-        <app-spinner v-if="isLoading" />
-        <div v-else class="row">
-            <div v-if="plans.length === 0">
-                <h4 class="text-warning">プランを登録して下さい。</h4>
-            </div>
-            <section v-else class="plan__container col-lg-6" v-for="plan in plans" :key="plan.id">
-                <div class="plan__header" />
-                <div class="plan__content">
-                    <div class="plan__content--info">
-                        <div>
-                            <input v-if="editPlanId===plan.id" type="text" v-model="editPlan.name" style="height: 50px;">
-                            <h4 v-else>{{plan.name}}</h4>
-                        </div>
-                        <div class="d-flex w-100 border-top">
-                            <div class="w-35 border-right">
-                                <input v-if="editPlanId===plan.id" type="date" v-model="editPlan.start">
-                                <p v-else>{{plan.start | moment_date}}</p>
-                            </div>
-                            <div class="border-right">
-                                <p>〜</p>
-                            </div>
-                            <div class="w-35 border-right">
-                                <input v-if="editPlanId===plan.id" type="date" v-model="editPlan.end">
-                                <p v-else>{{plan.end | moment_date}}</p>
-                            </div>
-                            <div class="w-35">
-                                <input v-if="editPlanId===plan.id" type="text" v-model="editPlan.days" maxlength="7">
-                                <p v-else>{{plan.days}}</p>
-                            </div>
-                        </div>
+    <div class="row">
+        <section class="plan__container col-lg-6" v-for="plan in plans" :key="plan.id">
+            <div class="plan__header" />
+            <div class="plan__content">
+                <div class="plan__content--info">
+                    <div>
+                        <input v-if="inputOpenId === plan.id" type="text" v-model="editPlan.name" style="height: 50px;">
+                        <h4 v-else>{{plan.name}}</h4>
                     </div>
-                    <div class="plan__content--commands">
-                        <router-link :to="{name: 'PageDetailList', params: {id: plan.id}}" class="mr-auto">
-                            <button class="btn btn-success">詳細ページ</button>
-                        </router-link>
-                        <button class="btn btn-info rounded-circle m-auto" v-if="editPlanId!==plan.id" @click="openEditInput(plan.id)">
-                            <font-awesome-icon icon="edit" />
-                        </button>
-                        <button class="btn btn-danger rounded-circle m-auto" v-if="editPlanId!==plan.id" @click="deletePlan(plan.id)">
-                            <font-awesome-icon icon="trash" />
-                        </button>
-                        <button class="btn btn-info rounded-circle m-auto" v-if="editPlanId===plan.id" @click="updatePlan(plan.id)">
-                            <font-awesome-icon icon="check" />
-                        </button>
-                        <button class="btn btn-secondary rounded-circle m-auto" v-if="editPlanId===plan.id" @click="getPlans()">
-                            ー
-                        </button>
-                        <router-link :to="{name: 'PageOutlineList', params: {id: plan.id}}" class="ml-auto">
-                            <button class="btn btn-primary">概要ページ</button>
-                        </router-link>
+                    <div class="d-flex w-100 border-top">
+                        <div class="w-35 border-right">
+                            <input v-if="inputOpenId === plan.id" type="date" v-model="editPlan.start">
+                            <p v-else>{{plan.start | moment_date}}</p>
+                        </div>
+                        <div class="border-right">
+                            <p>〜</p>
+                        </div>
+                        <div class="w-35 border-right">
+                            <input v-if="inputOpenId === plan.id" type="date" v-model="editPlan.end">
+                            <p v-else>{{plan.end | moment_date}}</p>
+                        </div>
+                        <div class="w-35">
+                            <input v-if="inputOpenId === plan.id" type="text" v-model="editPlan.days" maxlength="7">
+                            <p v-else>{{plan.days}}</p>
+                        </div>
                     </div>
                 </div>
-            </section>
-            <plan-new :getPlans="getPlans" />
-        </div>
-    </main>
+                <div class="plan__content--commands">
+                    <router-link :to="{name: 'PageDetailList', params: {id: plan.id}}" class="mr-auto">
+                        <button class="btn btn-success">詳細ページ</button>
+                    </router-link>
+                    <button class="btn btn-info rounded-circle m-auto" v-if="inputOpenId!==plan.id" @click="openInput(plan.id)">
+                        <font-awesome-icon icon="edit" />
+                    </button>
+                    <button class="btn btn-danger rounded-circle m-auto" v-if="inputOpenId!==plan.id" @click="deletePlan(plan.id)">
+                        <font-awesome-icon icon="trash" />
+                    </button>
+                    <button class="btn btn-info rounded-circle m-auto" v-if="inputOpenId===plan.id" @click="updatePlan(plan.id)">
+                        <font-awesome-icon icon="check" />
+                    </button>
+                    <button class="btn btn-secondary rounded-circle m-auto" v-if="inputOpenId===plan.id" @click="closeInput()">
+                        ー
+                    </button>
+                    <router-link :to="{name: 'PageOutlineList', params: {id: plan.id}}" class="ml-auto">
+                        <button class="btn btn-primary">概要ページ</button>
+                    </router-link>
+                </div>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from 'moment'
-import { AppSpinner } from '../parts'
-import PlanNew from './PlanNew'
 
-export default {
-    components: { AppSpinner, PlanNew },
-    
+export default {    
     data () {
         return {
-            plans: [],
-            newPlan: {},
             editPlan: {},
-            editPlanId: -1,
-            isInputOpen: false,
-            isLoading: true
+            inputOpenId: 0
         }
+    },
+
+    props: {
+        plans: Array,
+        getPlans: Function
     },
 
     filters: {
@@ -93,28 +83,18 @@ export default {
     },
 
     methods: {
-        getPlans () {
-            axios
-            .get(`/api/plans.json`, {
-                headers: { 'Authorization': this.$cookies.get('usertoken') }
-            })
-            .then(response => {
-                this.plans = response.data
-                this.isLoading = false
-                this.editPlanId = -1
-            })
-            .catch(() => {
-                this.$router.push({ name: 'PageAuth' })
-            })
-        },
-
-        openEditInput (plan_id) {
+        openInput (plan_id) {
             for (var plan of this.plans) {
                 if (plan.id === plan_id) {
                     this.editPlan = plan
-                    this.editPlanId = plan_id
+                    this.inputOpenId = plan_id
                 }
             }
+        },
+
+        closeInput () {
+            this.inputOpenId = -1
+            this.getPlans()
         },
 
         updatePlan (plan_id) {
@@ -130,11 +110,11 @@ export default {
                         headers: { 'Authorization': this.$cookies.get('usertoken') }
                     })
                     .then(() => {
-                        this.editPlanId = -1
+                        this.inputOpenId = -1
                         this.getPlans()
                         window.scrollTo({ top: 0 })
                     })
-                    .catch((error) => {
+                    .catch(() => {
                         alert("更新が完了しませんでした。通信環境をご確認下さい。")
                         return false
                     })
