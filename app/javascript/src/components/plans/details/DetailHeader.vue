@@ -42,6 +42,7 @@ export default {
     border-bottom: 5px solid gainsboro;
     text-align: center;
 }
+
 button {
     width: 80px;
 }

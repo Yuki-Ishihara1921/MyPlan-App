@@ -42,6 +42,7 @@ export default {
     background: lemonchiffon;
     text-align: center;
 }
+
 button {
     width: 80px;
 }

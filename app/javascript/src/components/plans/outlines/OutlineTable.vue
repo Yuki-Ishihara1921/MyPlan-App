@@ -15,23 +15,38 @@
             <draggable v-model="plan.outlines" @end="sortTable()" :disabled="!isDraggable" animation="200">
                 <tr class="bg-white" v-for="outline in plan.outlines" :key="outline.id">
                     <td class="outlineTable-datetime" @dblclick="openInputField(outline.id, 0)">
-                        <input v-if="editRowId === outline.id && editColumnId === 0" v-model="editOutline.date" @blur="updateField(outline.id)">
+                        <input
+                            v-if="editRowId === outline.id && editColumnId === 0"
+                            v-model="editOutline.date" @blur="updateField(outline.id)"
+                        >
                         <p v-else>{{outline.date}}</p>
                     </td>
                     <td class="outlineTable-datetime" @dblclick="openInputField(outline.id, 1)">
-                        <input v-if="editRowId === outline.id && editColumnId === 1" v-model="editOutline.time" @blur="updateField(outline.id)">
+                        <input
+                            v-if="editRowId === outline.id && editColumnId === 1"
+                            v-model="editOutline.time" @blur="updateField(outline.id)"
+                        >
                         <p v-else>{{outline.time}}</p>
                     </td>
                     <td class="outlineTable-schedule" @dblclick="openInputField(outline.id, 2)">
-                        <textarea v-if="editRowId === outline.id && editColumnId === 2" v-model="editOutline.schedule" @blur="updateField(outline.id)" />
+                        <textarea
+                            v-if="editRowId === outline.id && editColumnId === 2"
+                            v-model="editOutline.schedule" @blur="updateField(outline.id)"
+                        />
                         <p v-else>{{outline.schedule}}</p>
                     </td>
                     <td class="outlineTable-note" @dblclick="openInputField(outline.id, 3)">
-                        <textarea v-if="editRowId === outline.id && editColumnId === 3" v-model="editOutline.note" @blur="updateField(outline.id)" />
+                        <textarea
+                            v-if="editRowId === outline.id && editColumnId === 3"
+                            v-model="editOutline.note" @blur="updateField(outline.id)"
+                        />
                         <p v-else>{{outline.note}}</p>
                     </td>
                     <td class="outlineTable-delete">
-                        <font-awesome-icon icon="times-circle" class="icon--timesCircle text-danger" @click="deleteRow(outline.id)" />
+                        <font-awesome-icon
+                            icon="times-circle" class="icon--timesCircle text-danger"
+                            @click="deleteRow(outline.id)"
+                        />
                     </td>
                 </tr>
             </draggable>

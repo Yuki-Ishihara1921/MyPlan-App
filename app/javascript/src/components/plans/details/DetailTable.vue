@@ -15,19 +15,30 @@
             <draggable v-model="plan.details" @end="sortTable()" :disabled="!isDraggable" animation="200">
                 <tr class="bg-white" v-for="detail in plan.details" :key="detail.id">
                     <td class="detailTable-datetime" @dblclick="openInputField(detail.id, 0)">
-                        <input v-if="editRowId===detail.id && editColumnId===0" v-model="editDetail.date" @blur="updateField(detail.id)">
+                        <input
+                            v-if="editRowId===detail.id && editColumnId===0"
+                            v-model="editDetail.date" @blur="updateField(detail.id)"
+                        >
                         <p v-else>{{detail.date}}</p>
                     </td>
                     <td class="detailTable-datetime" @dblclick="openInputField(detail.id, 1)">
-                        <input type="time" v-if="editRowId===detail.id && editColumnId===1" v-model="editDetail.time" @blur="updateField(detail.id)">
+                        <input
+                            type="time" v-if="editRowId===detail.id && editColumnId===1"
+                            v-model="editDetail.time" @blur="updateField(detail.id)"
+                        >
                         <p v-else>{{detail.time | moment_time}}</p>
                     </td>
                     <td class="detailTable-schedule px-2" @dblclick="openInputField(detail.id, 2)">
-                        <textarea v-if="editRowId===detail.id && editColumnId===2" v-model="editDetail.schedule" @blur="updateField(detail.id)" />
+                        <textarea
+                            v-if="editRowId===detail.id && editColumnId===2"
+                            v-model="editDetail.schedule" @blur="updateField(detail.id)"
+                        />
                         <p v-else>{{detail.schedule}}</p>
                     </td>
                     <td class="detailTable-note px-2" @dblclick="openInputField(detail.id, 3)">
-                        <textarea v-if="editRowId===detail.id && editColumnId===3" v-model="editDetail.note" @blur="updateField(detail.id)" />
+                        <textarea v-if="editRowId===detail.id && editColumnId===3"
+                        v-model="editDetail.note" @blur="updateField(detail.id)"
+                    />
                         <p v-else>{{detail.note}}</p>
                     </td>
                     <td class="detailTable-delete">
@@ -133,6 +144,7 @@ export default {
 .icon-times-style {
     cursor: pointer;
 }
+
 .detailTable {
     border: 5px solid aquamarine;
     &-datetime {
@@ -150,6 +162,7 @@ export default {
         text-align: center;
     }
 }
+
 .draggable {
     border: 5px solid red !important;
     & tbody {
@@ -159,6 +172,7 @@ export default {
         background: aliceblue !important;
     }
 }
+
 .table {
     max-width: 800px;
     margin: auto;
@@ -170,9 +184,11 @@ export default {
         vertical-align: middle;
     }
 }
+
 input, textarea {
     width: 100%;
 }
+
 p {
     margin: 0;
     white-space: pre-wrap;

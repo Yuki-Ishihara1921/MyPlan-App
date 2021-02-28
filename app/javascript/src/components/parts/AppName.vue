@@ -13,6 +13,7 @@
     background: cornsilk;
     text-align: center;
 }
+
 h1 {
     padding: 1rem;
     color: mediumturquoise;

@@ -34,7 +34,6 @@ export default {
     beforeCreate () {
         const usertoken = this.$cookies.get('usertoken')
         if (!usertoken) {
-            console.log("usertoken無し")
             this.$router.push({ name: 'PageAuth' })
         }
     },
@@ -54,7 +53,7 @@ export default {
                 this.isLoading = false
             })
             .catch(() => {
-                alert("getPlans失敗")
+                alert("データを取得できませんでした。ログインページに戻ります。")
                 this.$router.push({ name: 'PageAuth' })
             })
         }

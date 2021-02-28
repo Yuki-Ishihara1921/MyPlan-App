@@ -149,6 +149,7 @@ export default {
     max-width: 600px;
     margin: 50px auto;
 }
+
 .plan__header {
     width: 50%;
     height: 35px;
@@ -156,6 +157,7 @@ export default {
     border: 10px solid blanchedalmond;
     border-bottom: 0;
 }
+
 .plan__content {
     border: 10px solid blanchedalmond;
     border-radius: 10px;
@@ -170,14 +172,17 @@ export default {
         margin: 0.5rem;
     }
 }
+
 .w-35 {
     width: 35%;
 }
+
 input {
     width: 100%;
     height: 100%;
     padding: 10px;
 }
+
 h4, p {
     margin: 10px 5px;
 }
