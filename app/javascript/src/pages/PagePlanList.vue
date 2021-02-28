@@ -32,21 +32,22 @@ export default {
     },
 
     beforeCreate () {
-        const jwt = this.$cookies.get('usertoken')
-        if (!jwt) {
+        const usertoken = this.$cookies.get('usertoken')
+        if (!usertoken) {
             this.$router.push({ name: 'PageAuth' })
         }
     },
 
     mounted () {
-        this.getPlans()
+        const usertoken = this.$cookies.get('usertoken')
+        this.getPlans(usertoken)
     },
     
     methods: {
-        getPlans () {
+        getPlans (usertoken) {
             axios
             .get(`/api/plans.json`, {
-                headers: { 'Authorization': this.$cookies.get('usertoken') }
+                headers: { 'Authorization': usertoken }
             })
             .then(response => {
                 this.plans = response.data

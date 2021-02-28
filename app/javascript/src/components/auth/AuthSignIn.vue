@@ -43,7 +43,7 @@ export default {
                 this.$router.push({ name: 'PagePlanList' })
             })
             .catch((error) => {
-                alert("ログインに失敗しました。通信環境をご確認下さい。")
+                alert("ログインできませんでした。入力内容が正しいか、通信環境をご確認下さい。")
                 throw new Error(error)
             })
         }

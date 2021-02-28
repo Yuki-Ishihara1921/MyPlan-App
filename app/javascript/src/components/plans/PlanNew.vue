@@ -8,20 +8,41 @@
                 <h4 class="text-primary text-center">新規作成</h4>
                 <div class="form-group">
                     <label>● プラン名(必須)</label>
-                    <input class="form-control w-100 m-auto" type="text" v-model="newPlan.name" placeholder="例：東京観光">
+                    <input
+                        class="form-control w-100 m-auto"
+                        type="text"
+                        v-model="newPlan.name"
+                        placeholder="例：東京観光"
+                    >
                 </div>
                 <div class="form-group">
                     <label>● 日程</label>
                     <div class="d-flex">
-                        <input class="form-control" type="date" v-model="newPlan.start" placeholder="Start">
+                        <input
+                            class="form-control"
+                            type="date"
+                            v-model="newPlan.start"
+                            placeholder="Start"
+                        >
                         <p class="mx-2 my-auto">〜</p>
-                        <input class="form-control" type="date" v-model="newPlan.end" placeholder="End">
+                        <input
+                            class="form-control"
+                            type="date"
+                            v-model="newPlan.end"
+                            placeholder="End"
+                        >
                     </div>
                 </div>
                 <div class="d-flex">
                     <div class="form-group">
                         <label>● 日数</label>
-                        <input class="form-control" type="text" v-model="newPlan.days" placeholder="例：2泊3日" maxlength="7">
+                        <input
+                            class="form-control"
+                            type="text"
+                            v-model="newPlan.days"
+                            placeholder="例：2泊3日"
+                            maxlength="7"
+                        >
                     </div>
                     <div class="planNewButton-complete">
                         <button class="btn btn-success" @click="createPlan()">作成</button>
