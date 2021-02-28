@@ -10,18 +10,19 @@
                 <outline-buttons :plan="plan" :isDraggable="isDraggable" :changeIsDraggable="changeIsDraggable" />
             </div>
         </main>
-        <app-spinner v-if="isLoading" text="データ取得中..." />
+        <app-loading v-if="isLoading" text="データ取得中..." />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import { TheHeader } from '../components/header'
-import { AppSpinner } from '../components/parts'
 import { OutlineHeader, OutlineTable, OutlineButtons } from '../components/plans/outlines'
+import { AppLoading } from '../components/parts'
 
 export default {
-    components: { AppSpinner, TheHeader, OutlineHeader, OutlineTable, OutlineButtons },
+    components: { TheHeader, OutlineHeader, OutlineTable, OutlineButtons, AppLoading },
+
     data () {
         return {
             plan: {},

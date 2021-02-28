@@ -12,18 +12,19 @@
             />
         </form>
         <button class="btn btn-success" @click="userSignIn()">ログイン</button>
-        <app-spinner v-if="isSignInLoading" text="ログイン中..." />
+        <app-loading v-if="isSignInLoading" text="ログイン中..." />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import AuthInput from './AuthInput'
-import AppSpinner from '../parts/AppSpinner.vue'
+import { AppLoading } from '../parts'
 import { isValidEmailFormat } from './authFunctions'
 
 export default {
-  components: { AuthInput, AppSpinner },
+    components: { AuthInput, AppLoading },
+
     data () {
         return {
             user: {

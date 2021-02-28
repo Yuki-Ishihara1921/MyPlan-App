@@ -10,18 +10,18 @@
                 <plan-new :getPlans="getPlans" />
             </div>
         </main>
-        <app-spinner v-if="isLoading" text="データ取得中..." />
+        <app-loading v-if="isLoading" text="データ取得中..." />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import { TheHeader } from '../components/header'
-import { AppSpinner } from '../components/parts'
 import { PlanIndex, PlanNew } from '../components/plans'
+import { AppLoading } from '../components/parts'
 
 export default {
-    components: { TheHeader, AppSpinner, PlanIndex, PlanNew },
+    components: { TheHeader, PlanIndex, PlanNew, AppLoading },
 
     data () {
         return {

@@ -17,11 +17,11 @@
 <script>
 import axios from 'axios'
 import { TheHeader } from '../components/header'
-import { AppSpinner } from '../components/parts'
 import { DetailHeader, DetailTable, DetailButtons } from '../components/plans/details'
+import { AppLoading } from '../components/parts'
 
 export default {
-    components: { TheHeader, AppSpinner, DetailHeader, DetailTable, DetailButtons },
+    components: { TheHeader, DetailHeader, DetailTable, DetailButtons, AppLoading },
 
     data () {
         return {

@@ -1,5 +1,5 @@
 <template>
-    <div class="appSpinner_container">
+    <div class="appLoading_container">
         <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped>
-.appSpinner_container {
+.appLoading_container {
     display: flex;
     flex-flow: column;
     justify-content: center;

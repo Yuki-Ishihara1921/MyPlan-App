@@ -25,7 +25,7 @@
                 </form>
             </div>
         </modal>
-        <app-spinner v-if="isSignUpLoading" text="アカウント登録中..." />
+        <app-loading v-if="isSignUpLoading" text="アカウント登録中..." />
     </div>
 </template>
 
@@ -33,13 +33,11 @@
 import axios from 'axios'
 import AuthInput from './AuthInput'
 import { isValidEmailFormat } from './authFunctions'
-import AppSpinner from '../parts/AppSpinner.vue'
+import { AppLoading } from '../parts'
 
 export default {
-    components: {
-        AuthInput,
-        AppSpinner
-    },
+    components: { AuthInput, AppLoading },
+    
     data () {
         return {
             newUser: {
