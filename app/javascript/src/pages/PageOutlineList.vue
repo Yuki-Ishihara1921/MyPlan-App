@@ -5,12 +5,12 @@
         </the-header>
         <main>
             <outline-header :class="{'fixed-top': scrollY > headerY}" :plan="plan" />
-            <app-spinner v-if="isLoading" />
-            <div v-else class="pt-3 px-3">
+            <div class="pt-3 px-3">
                 <outline-table :plan="plan" :isDraggable="isDraggable" :getPlan="getPlan" />
                 <outline-buttons :plan="plan" :isDraggable="isDraggable" :changeIsDraggable="changeIsDraggable" />
             </div>
         </main>
+        <app-spinner v-if="isLoading" text="データ取得中..." />
     </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
             plan: {},
             headerY: 0,
             scrollY: 0,
-            isLoading: true,
+            isLoading: false,
             isDraggable: false,
             isPageOutlineList: true,
         }
@@ -51,6 +51,7 @@ export default {
 
     methods: {
         getPlan () {
+            this.isLoading = true
             axios
             .get(`/api/plans/${this.$route.params.id}.json`)
             .then(response => {

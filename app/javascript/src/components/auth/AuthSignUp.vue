@@ -25,16 +25,20 @@
                 </form>
             </div>
         </modal>
+        <app-spinner v-if="isSignUpLoading" text="アカウント登録中..." />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import AuthInput from './AuthInput'
+import { isValidEmailFormat } from './authFunctions'
+import AppSpinner from '../parts/AppSpinner.vue'
 
 export default {
     components: {
-        AuthInput
+        AuthInput,
+        AppSpinner
     },
     data () {
         return {
@@ -43,7 +47,8 @@ export default {
                 email: "",
                 password: "",
                 password_confirmation: ""
-            }
+            },
+            isSignUpLoading: false
         }
     },
     methods: {
@@ -53,7 +58,7 @@ export default {
                 alert("未入力の項目があります。")       
                 return false
             }
-            if (!this.isValidEmailFormat(user.email)) {
+            if (!isValidEmailFormat(user.email)) {
                 alert("メールアドレスの形式が正しくありません。")
                 return false
             }
@@ -70,6 +75,7 @@ export default {
                 if (!res) {
                     return false
                 } else {
+                    this.isSignUpLoading = true
                     axios
                     .post('/api/users', user)
                     .then(response => {
@@ -79,9 +85,11 @@ export default {
                             this.$cookies.set('usertoken', data.token)
                             this.$router.push({ name: 'PagePlanList' })
                             alert("アカウントが登録されました！")
+                            this.isSignUpLoading = false
                         }
                     })
                     .catch((error) => {
+                        this.isSignUpLoading = true
                         alert("アカウントが登録されませんでした。通信環境をご確認下さい。")
                         throw new Error(error)
                     })
@@ -92,11 +100,6 @@ export default {
         showModal () {
             this.newUser = { name: "", email: "", password: "", password_confirmation: "" }
             this.$modal.show("modal--signUp")
-        },
-
-        isValidEmailFormat (email) {
-            const regex = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
-            return regex.test(email)
         }
     }
 }

@@ -4,13 +4,13 @@
             <h1 slot="pageName" class="mx-3 my-auto">Plan List</h1>
         </the-header>
         <main>
-            <app-spinner v-if="isLoading" />
-            <div v-else class="container">
+            <div class="container">
                 <h4 v-if="plans.length === 0" class="m-5 text-center text-warning">プランを登録して下さい。</h4>
                 <plan-index v-else :plans="plans" :getPlans="getPlans" />
                 <plan-new :getPlans="getPlans" />
             </div>
         </main>
+        <app-spinner v-if="isLoading" text="データ取得中..." />
     </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
     data () {
         return {
             isPagePlanList: true,
-            isLoading: true,
+            isLoading: false,
             plans: []
         }
     },
@@ -44,6 +44,7 @@ export default {
     
     methods: {
         getPlans () {
+            this.isLoading = true
             axios
             .get(`/api/plans.json`, {
                 headers: { 'Authorization': this.$cookies.get('usertoken') }
@@ -53,6 +54,7 @@ export default {
                 this.isLoading = false
             })
             .catch(() => {
+                this.isLoading = false
                 alert("データを取得できませんでした。ログインページに戻ります。")
                 this.$router.push({ name: 'PageAuth' })
             })

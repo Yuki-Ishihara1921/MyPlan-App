@@ -12,39 +12,52 @@
             />
         </form>
         <button class="btn btn-success" @click="userSignIn()">ログイン</button>
+        <app-spinner v-if="isSignInLoading" text="ログイン中..." />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import AuthInput from './AuthInput'
+import AppSpinner from '../parts/AppSpinner.vue'
+import { isValidEmailFormat } from './authFunctions'
 
 export default {
-  components: { AuthInput },
+  components: { AuthInput, AppSpinner },
     data () {
         return {
             user: {
                 email: "",
                 password: ""
-            }
+            },
+            isSignInLoading: false
         }
     },
     methods: {
         userSignIn () {
+            this.isSignInLoading = true
             const user = this.user
             if (user.email === "" || user.password === "") {
+                this.isSignInLoading = false
                 alert("未入力の項目があります。")
+                return false
+            }
+            if (!isValidEmailFormat(user.email)) {
+                this.isSignInLoading = false
+                alert("メールアドレスの形式が正しくありません。")
                 return false
             }
             axios
             .post('/api/sessions', this.user)
             .then(response => {
+                this.isSignInLoading = false
                 const data = response.data
                 this.$cookies.set('user', data.user)
                 this.$cookies.set('usertoken', data.token)
                 this.$router.push({ name: 'PagePlanList' })
             })
             .catch((error) => {
+                this.isSignInLoading = false
                 alert("ログインできませんでした。入力内容が正しいか、通信環境をご確認下さい。")
                 throw new Error(error)
             })
