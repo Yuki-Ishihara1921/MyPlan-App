@@ -2,14 +2,14 @@
     <div class="signIn">
         <font-awesome-icon icon="user" class="icon--user" />
         <form>
-            <div class="form-group d-flex">
-                <font-awesome-icon icon="envelope" class="icon--auth" />
-                <input class="form-control" type="email" v-model="user.email" placeholder="メールアドレス" @keyup.enter="userSignIn()">
-            </div>
-            <div class="form-group d-flex">
-                <font-awesome-icon icon="key" class="icon--auth" />
-                <input class="form-control" type="password" v-model="user.password" placeholder="パスワード" @keyup.enter="userSignIn()">
-            </div>
+            <auth-input
+                icon="envelope" type="email" placeholder="メールアドレス"
+                v-model="user.email" :authFunction="userSignIn"
+            />
+            <auth-input
+                icon="key" type="password" placeholder="パスワード"
+                v-model="user.password" :authFunction="userSignIn"
+            />
         </form>
         <button class="btn btn-success" @click="userSignIn()">ログイン</button>
     </div>
@@ -17,8 +17,10 @@
 
 <script>
 import axios from 'axios'
+import AuthInput from './AuthInput'
 
 export default {
+  components: { AuthInput },
     data () {
         return {
             user: {
@@ -57,6 +59,7 @@ export default {
     margin: auto;
     text-align: center;
 }
+
 .icon--user {
     width: 100px !important;
     margin: 1rem;
@@ -66,9 +69,5 @@ export default {
     background: #fff;
     color: cadetblue;
     font-size: 100px;
-}
-.icon--auth {
-    margin: auto 10px auto 0;
-    font-size: 20px;
 }
 </style>

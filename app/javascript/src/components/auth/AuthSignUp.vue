@@ -5,22 +5,22 @@
             <div class="px-5">
                 <h4 class="m-3 text-primary">アカウント登録</h4>
                 <form>
-                    <div class="form-group d-flex">
-                        <font-awesome-icon icon="user-circle" class="icon--auth" />
-                        <input class="form-control" type="text" v-model="newUser.name" placeholder="ユーザー名">
-                    </div>
-                    <div class="form-group d-flex">
-                        <font-awesome-icon icon="envelope" class="icon--auth" />
-                        <input class="form-control" type="email" v-model="newUser.email" placeholder="メールアドレス">
-                    </div>
-                    <div class="form-group d-flex">
-                        <font-awesome-icon icon="key" class="icon--auth" />
-                        <input class="form-control" type="password" v-model="newUser.password" placeholder="パスワード">
-                    </div>
-                    <div class="form-group d-flex">
-                        <font-awesome-icon icon="key" class="icon--auth" />
-                        <input class="form-control" type="password" v-model="newUser.password_confirmation" placeholder="パスワード(確認用)">
-                    </div>
+                    <auth-input
+                        icon="user-circle" type="text" placeholder="ユーザー名"
+                        v-model="newUser.name" :authFunction="userSignUp"
+                    />
+                    <auth-input
+                        icon="envelope" type="email" placeholder="メールアドレス"
+                        v-model="newUser.email" :authFunction="userSignUp"
+                    />
+                    <auth-input
+                        icon="key" type="password" placeholder="パスワード (8文字以上)"
+                        v-model="newUser.password" :authFunction="userSignUp"
+                    />
+                    <auth-input
+                        icon="key" type="password" placeholder="パスワード (確認用)"
+                        v-model="newUser.password_confirmation" :authFunction="userSignUp"
+                    />
                     <button class="btn btn-success m-auto" @click="userSignUp()">登録</button>
                 </form>
             </div>
@@ -30,8 +30,12 @@
 
 <script>
 import axios from 'axios'
+import AuthInput from './AuthInput'
 
 export default {
+    components: {
+        AuthInput
+    },
     data () {
         return {
             newUser: {
@@ -47,6 +51,14 @@ export default {
             const user = this.newUser
             if (user.name === "" || user.email === "" || user.password === "" || user.password_confirmation === "") {
                 alert("未入力の項目があります。")       
+                return false
+            }
+            if (!this.isValidEmailFormat(user.email)) {
+                alert("メールアドレスの形式が正しくありません。")
+                return false
+            }
+            if (user.password.length < 8) {
+                alert("パスワードは8文字以上で入力して下さい。")
                 return false
             }
             if (user.password !== user.password_confirmation) {
@@ -70,7 +82,7 @@ export default {
                         }
                     })
                     .catch((error) => {
-                        alert("登録されませんでした。通信環境をご確認下さい。")
+                        alert("アカウントが登録されませんでした。通信環境をご確認下さい。")
                         throw new Error(error)
                     })
                 }
@@ -80,6 +92,11 @@ export default {
         showModal () {
             this.newUser = { name: "", email: "", password: "", password_confirmation: "" }
             this.$modal.show("modal--signUp")
+        },
+
+        isValidEmailFormat (email) {
+            const regex = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+            return regex.test(email)
         }
     }
 }
@@ -89,9 +106,5 @@ export default {
 .signUp {
     margin: 1rem;
     text-align: center;
-}
-.icon--auth {
-    margin: auto 10px auto 0;
-    font-size: 20px;
 }
 </style>
