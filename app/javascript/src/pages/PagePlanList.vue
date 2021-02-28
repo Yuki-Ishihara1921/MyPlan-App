@@ -34,30 +34,30 @@ export default {
     beforeCreate () {
         const usertoken = this.$cookies.get('usertoken')
         if (!usertoken) {
+            console.log("usertoken無し")
             this.$router.push({ name: 'PageAuth' })
         }
     },
 
     mounted () {
-        const usertoken = this.$cookies.get('usertoken')
-        this.getPlans(usertoken)
+        this.getPlans()
     },
     
     methods: {
-        getPlans (usertoken) {
+        getPlans () {
             axios
             .get(`/api/plans.json`, {
-                headers: { 'Authorization': usertoken }
+                headers: { 'Authorization': this.$cookies.get('usertoken') }
             })
             .then(response => {
                 this.plans = response.data
                 this.isLoading = false
             })
             .catch(() => {
+                alert("getPlans失敗")
                 this.$router.push({ name: 'PageAuth' })
             })
-        },
-
+        }
     }
 }
 </script>
