@@ -3,16 +3,6 @@ module JwtAuthenticator
 
     SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
 
-    # ヘッダーのトークンを複合化してユーザー認証(ログイン入力せずにログインする処理)
-    def jwt_authenticate
-        # トークンをヘッダーから取得
-        encode_token = request.headers['Authorization'].split('Bearer').last
-        # トークンを複合化
-        payload = decode(encode_token)
-        # payloadから取得したユーザーIDでログインするユーザー情報を取得
-        @current_user = User.find_by(id: payload[:user_id])
-    end
-
     # 暗号化処理
     def encode(user_id)
         # 再ログインまでの期間を6ヶ月に設定^@[]
