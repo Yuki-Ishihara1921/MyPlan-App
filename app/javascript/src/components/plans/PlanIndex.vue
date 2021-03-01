@@ -6,7 +6,7 @@
                 <div class="plan__content--info">
                     <div>
                         <input v-if="inputOpenId === plan.id" type="text" v-model="editPlan.name" style="height: 50px;">
-                        <h4 v-else>{{plan.name}}</h4>
+                        <h4 v-else class="text-primary">{{plan.name}}</h4>
                     </div>
                     <div class="d-flex w-100 border-top">
                         <div class="w-35 border-right">
@@ -46,6 +46,14 @@
                         <button class="btn btn-primary">概要ページ</button>
                     </router-link>
                 </div>
+                <div class="p-2 border-top text-right">
+                    <span>
+                        <font-awesome-icon
+                            icon="sync-alt" class=""
+                        />
+                    </span>
+                    <span class="m-0">最終更新 : {{plan.updated_at | moment_datetime}}</span>
+                </div>
             </div>
         </section>
         <app-loading v-if="isLoading" :text="loadingText" />
@@ -82,6 +90,13 @@ export default {
                 return "- / -"
             } else {
                 return moment(date).format("MM / DD")
+            }
+        },
+        moment_datetime (datetime) {
+            if (datetime === null) {
+                return "- / -"
+            } else {
+                return moment(datetime).format("yyyy/MM/DD HH:mm")
             }
         }
     },
@@ -190,7 +205,7 @@ export default {
     }
     &--commands {
         display: flex;
-        margin: 0.5rem;
+        margin: 1rem;
     }
 }
 

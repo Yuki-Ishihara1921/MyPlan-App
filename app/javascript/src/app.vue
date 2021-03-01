@@ -29,9 +29,9 @@ Vue.use(BootstrapVue)
 
 /* fontawesome */
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser, faUserCircle, faEnvelope, faKey, faEdit, faCheck, faTrash, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faEdit, faEnvelope, faKey, faSyncAlt, faTimesCircle, faTrash, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faUser, faUserCircle, faEnvelope, faKey, faEdit, faCheck, faTrash, faTimesCircle)
+library.add(faCheck, faEdit, faEnvelope, faKey, faSyncAlt, faTimesCircle, faTrash, faUser, faUserCircle)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 export default {
