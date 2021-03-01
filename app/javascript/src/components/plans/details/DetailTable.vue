@@ -7,7 +7,11 @@
                     <th class="detailTable-datetime" scope="col">時間</th>
                     <th class="detailTable-schedule" cope="col">スケジュール</th>
                     <th class="detailTable-note" scope="col">メモ</th>
-                    <th class="detailTable-delete" scope="col">消</th>
+                    <th class="detailTable-delete" scope="col">
+                        <font-awesome-icon
+                            icon="trash" class="w-100"
+                        />
+                    </th>
                 </tr>
             </div>
         </thead>

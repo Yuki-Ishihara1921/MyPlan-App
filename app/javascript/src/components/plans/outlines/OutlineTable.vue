@@ -7,7 +7,11 @@
                     <th class="outlineTable-datetime" scope="col">時間</th>
                     <th class="outlineTable-schedule" cope="col">スケジュール</th>
                     <th class="outlineTable-note" scope="col">メモ</th>
-                    <th class="outlineTable-delete" scope="col">消</th>
+                    <th class="outlineTable-delete" scope="col">
+                        <font-awesome-icon
+                            icon="trash" class="w-100"
+                        />
+                    </th>
                 </tr>
             </div>
         </thead>
