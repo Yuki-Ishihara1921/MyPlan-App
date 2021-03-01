@@ -148,15 +148,15 @@ export default {
 .detailTable {
     border: 5px solid aquamarine;
     &-datetime {
-        width: 75px;
+        min-width: 75px;
         text-align: center;
         font-weight: bold;
     }
     &-schedule {
-        width: 362px;
+        min-width: 362px;
     }
     &-note {
-        width: 250px;
+        min-width: 250px;
     }
     &-delete {
         text-align: center;
@@ -191,6 +191,7 @@ input, textarea {
 
 p {
     margin: 0;
-    white-space: pre-wrap;
+    word-break: break-word;
+    white-space: break-spaces;
 }
 </style>

@@ -190,6 +190,7 @@ input, textarea {
 }
 p {
     margin: 0;
-    white-space: pre-wrap;
+    word-break: break-word;
+    white-space: break-spaces;
 }
 </style>
