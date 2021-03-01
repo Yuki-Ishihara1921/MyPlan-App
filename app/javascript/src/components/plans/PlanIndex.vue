@@ -48,18 +48,26 @@
                 </div>
             </div>
         </section>
+        <app-loading v-if="isLoading" :text="loadingText" />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import { AppLoading } from '../parts'
 
-export default {    
+export default {
+    components: {
+        AppLoading
+    },
+
     data () {
         return {
             editPlan: {},
-            inputOpenId: 0
+            inputOpenId: 0,
+            isLoading: false,
+            loadingText: ""
         }
     },
 
@@ -98,27 +106,31 @@ export default {
         },
 
         updatePlan (plan_id) {
+            if (this.editPlan.name === "") {
+                alert("プラン名を入力して下さい。")
+                return false
+            }
             const res = window.confirm("こちらの内容で更新しますか？")
             if (!res) {
                 return false
             } else {
-                if (this.editPlan.name === "") {
-                    alert("プラン名を入力して下さい。")
-                } else {
-                    axios
-                    .put(`/api/plans/${plan_id}`, this.editPlan, {
-                        headers: { 'Authorization': this.$cookies.get('usertoken') }
-                    })
-                    .then(() => {
-                        this.inputOpenId = -1
-                        this.getPlans()
-                        window.scrollTo({ top: 0 })
-                    })
-                    .catch(() => {
-                        alert("更新が完了しませんでした。通信環境をご確認下さい。")
-                        return false
-                    })
-                }
+                this.isLoading = true
+                this.loadingText = "更新中..."
+                axios
+                .put(`/api/plans/${plan_id}`, this.editPlan, {
+                    headers: { 'Authorization': this.$cookies.get('usertoken') }
+                })
+                .then(() => {
+                    this.inputOpenId = -1
+                    this.hideLoading()
+                    this.getPlans()
+                    window.scrollTo({ top: 0 })
+                })
+                .catch(() => {
+                    alert("更新が完了しませんでした。通信環境をご確認下さい。")
+                    this.hideLoading()
+                    return false
+                })
             }
         },
 
@@ -127,18 +139,27 @@ export default {
             if (!res) {
                 return false
             } else {
+                this.isLoading = true
+                this.loadingText = "削除中..."
                 axios
                 .delete(`/api/plans/${plan_id}`, {
                     headers: { 'Authorization': this.$cookies.get('usertoken') }
                 })
                 .then(() => {
+                    this.hideLoading()
                     this.getPlans()
                 })
                 .catch(() => {
                     alert("削除できませんでした。通信環境をご確認下さい。")
+                    this.hideLoading()
                     return false
                 })
             }
+        },
+
+        hideLoading () {
+            this.isLoading = false
+            this.loadingText = ""
         }
     }
 }

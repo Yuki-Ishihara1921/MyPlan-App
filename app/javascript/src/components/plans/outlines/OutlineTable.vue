@@ -51,14 +51,20 @@
                 </tr>
             </draggable>
         </tbody>
+        <app-loading v-if="isLoading" :text="loadingText" />
     </table>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import { AppLoading } from '../../parts'
 
 export default {
+    components: {
+        AppLoading
+    },
+
     data () {
         return {
             editOutline: {
@@ -68,7 +74,9 @@ export default {
                 note: ""
             },
             editRowId: -1,
-            editColumnId: -1
+            editColumnId: -1,
+            isLoading: false,
+            loadingText: ""
         }
     },
 
@@ -102,43 +110,64 @@ export default {
         },
 
         updateField (id) {
+            this.loadingText = "更新中..."
+            this.isLoading = true
             axios
             .put(`/api/plans/${this.$route.params.id}/outlines/${id}`, this.editOutline)
             .then(() => {
                 this.editRowId = -1
                 this.editColumnId = -1
+                this.hideLoading()
                 this.getPlan()
             })
             .catch((error) => {
                 alert("更新できませんでした。通信環境をご確認下さい。")
+                this.hideLoading()
                 throw new Error(error)
             })
         },
 
         deleteRow (id) {
+            this.loadingText = "削除中..."
             const res = window.confirm("こちらのラインを削除しますか？")
             if (!res) {
                 return false
             } else {
+                this.isLoading = true
                 axios
                 .delete(`/api/plans/${this.$route.params.id}/outlines/${id}`)
-                .then(() => { this.getPlan() })
+                .then(() => {
+                    this.hideLoading()
+                    this.getPlan()
+                })
                 .catch((error) => {
                     alert("削除できませんでした。もう一度やり直して下さい。")
+                    this.hideLoading()
                     throw new Error(error)
                 })
             }
         },
 
         sortTable () {
+            this.loadingText = "更新中..."
+            this.isLoading = true
             axios
             .patch(`/api/plans/${this.$route.params.id}/outlines`, {
                 outlines: this.plan.outlines
             })
+            .then(() => {
+                this.hideLoading()
+            })
             .catch((error) => {
                 alert("並び替えできませんでした。通信環境をご確認下さい。")
+                this.hideLoading()
                 throw new Error(error)
             })
+        },
+
+        hideLoading () {
+            this.loadingText = ""
+            this.isLoading = false
         }
     }
 }

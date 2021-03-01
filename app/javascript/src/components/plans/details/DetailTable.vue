@@ -47,14 +47,20 @@
                 </tr>
             </draggable>
         </tbody>
+        <app-loading v-if="isLoading" :text="loadingText" />
     </table>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import { AppLoading } from '../../parts'
 
 export default {
+    components: {
+        AppLoading
+    },
+
     data () {
         return {
             editDetail: {
@@ -64,7 +70,9 @@ export default {
                 note: ""
             },
             editRowId: -1,
-            editColumnId: -1
+            editColumnId: -1,
+            isLoading: false,
+            loadingText: ""
         }
     },
 
@@ -98,11 +106,14 @@ export default {
         },
 
         updateField (id) {
+            this.isLoading = true
+            this.loadingText = "更新中..."
             axios
             .put(`/api/plans/${this.$route.params.id}/details/${id}`, this.editDetail)
             .then(() => {
                 this.editRowId = -1
                 this.editColumnId = -1
+                this.hideLoading()
                 this.getPlan()
             })
             .catch((error) => {
@@ -112,29 +123,46 @@ export default {
         },
 
         deleteRow (id) {
+            this.loadingText = "削除中..."
             const res = window.confirm("こちらのラインを削除しますか？")
             if (!res) {
                 return false
             } else {
+                this.isLoading = true
                 axios
                 .delete(`/api/plans/${this.$route.params.id}/details/${id}`)
-                .then(() => { this.getPlan() })
+                .then(() => {
+                    this.hideLoading()
+                    this.getPlan()
+                })
                 .catch((error) => {
                     alert("削除できませんでした。もう一度やり直して下さい。")
+                    this.hideLoading()
                     throw new Error(error)
                 })
             }
         },
 
         sortTable () {
+            this.isLoading = true
+            this.hideLoading = "更新中..."
             axios
             .patch(`/api/plans/${this.$route.params.id}/details`, {
                 details: this.plan.details
             })
+            .then(() => {
+                this.hideLoading()
+            })
             .catch((error) => {
                 alert("並び替えできませんでした。通信環境をご確認下さい。")
+                this.hideLoading()
                 throw new Error(error)
             })
+        },
+
+        hideLoading () {
+            this.loadingText = ""
+            this.isLoading = false
         }
     }
 }
