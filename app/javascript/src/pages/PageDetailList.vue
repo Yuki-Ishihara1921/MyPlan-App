@@ -10,7 +10,7 @@
                 <detail-buttons :plan="plan" :isDraggable="isDraggable" :changeIsDraggable="changeIsDraggable" />
             </div>
         </main>
-        <app-spinner v-if="isLoading" text="データ取得中..." />
+        <app-loading v-if="isLoading" text="データ取得中..." />
     </div>
 </template>
 
