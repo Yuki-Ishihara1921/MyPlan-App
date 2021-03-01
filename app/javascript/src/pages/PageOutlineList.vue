@@ -56,6 +56,7 @@ export default {
             axios
             .get(`/api/plans/${this.$route.params.id}.json`)
             .then(response => {
+                console.log("data", response.data)
                 this.plan = response.data
                 this.isLoading = false
             })
