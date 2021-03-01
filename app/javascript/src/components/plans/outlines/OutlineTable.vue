@@ -180,7 +180,7 @@ export default {
 .outlineTable {
     border: 5px solid aqua;
     &-datetime {
-        width: 90px;
+        min-width: 90px;
         text-align: center;
         font-weight: bold;
     }
