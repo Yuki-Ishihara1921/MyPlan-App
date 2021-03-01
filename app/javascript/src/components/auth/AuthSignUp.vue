@@ -81,13 +81,13 @@ export default {
                         if (data) {
                             this.$cookies.set('user', data.user)
                             this.$cookies.set('usertoken', data.token)
-                            this.$router.push({ name: 'PagePlanList' })
                             alert("アカウントが登録されました！")
+                            this.$router.push({ name: 'PagePlanList' })
                             this.isSignUpLoading = false
                         }
                     })
                     .catch((error) => {
-                        this.isSignUpLoading = true
+                        this.isSignUpLoading = false
                         alert("アカウントが登録されませんでした。通信環境をご確認下さい。")
                         throw new Error(error)
                     })
