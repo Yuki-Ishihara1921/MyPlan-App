@@ -2,8 +2,14 @@
     <header id="header">
         <slot name="pageName" />
         <div class="header__menu">
-            <user-info />
-            <app-explanation :isPagePlanList="isPagePlanList" :isPageOutlineList="isPageOutlineList" :isPageDetailList="isPageDetailList" />
+            <div class="d-flex">
+                <user-info />
+                <app-explanation
+                    :isPagePlanList="isPagePlanList"
+                    :isPageOutlineList="isPageOutlineList"
+                    :isPageDetailList="isPageDetailList"
+                />
+            </div>
         </div>
     </header>
 </template>
@@ -32,7 +38,7 @@ header {
 .header__menu {
     position: relative;
     margin-left: auto;
-    padding: 5px 10px;
+    padding: 0.5rem;
     border-left: 5px solid gainsboro;
     background: aliceblue;
     text-align: center;

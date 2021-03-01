@@ -1,6 +1,6 @@
 <template>
-    <span>
-        <button class="btn btn-secondary rounded-circle" @click="showModal()">？</button>
+    <div>
+        <button class="btn btn-secondary btn-sm rounded-circle" @click="showModal()">？</button>
         <modal name="modal--appExplanation">
             <section class="px-5">
                 <h3 class="text-info">★How to Use★</h3>
@@ -15,7 +15,7 @@
                 </div>
             </section>
         </modal>
-    </span>
+    </div>
 </template>
 
 <script>
