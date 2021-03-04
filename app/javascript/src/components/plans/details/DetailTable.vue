@@ -152,8 +152,8 @@ export default {
         },
 
         sortTable () {
+            this.loadingText = "更新中..."
             this.isLoading = true
-            this.hideLoading = "更新中..."
             axios
             .patch(`/api/plans/${this.$route.params.id}/details`, {
                 details: this.plan.details
