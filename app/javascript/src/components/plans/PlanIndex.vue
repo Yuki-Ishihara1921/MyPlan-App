@@ -5,23 +5,35 @@
             <div class="plan__content">
                 <div class="plan__content--infos">
                     <div class="plan__content--infos--name">
-                        <input v-if="inputOpenId === plan.id" type="text" v-model="editPlan.name">
+                        <input 
+                            v-if="inputOpenId === plan.id" placeholder="プラン名(必須)"
+                            type="text" v-model="editPlan.name"
+                        >
                         <h4 v-else class="text-primary">{{plan.name}}</h4>
                     </div>
                     <div class="d-flex w-100 border-top">
                         <div class="w-35 border-right">
-                            <input v-if="inputOpenId === plan.id" type="date" v-model="editPlan.start">
+                            <input
+                                v-if="inputOpenId === plan.id" type="date"
+                                v-model="editPlan.start"
+                            >
                             <p v-else>{{plan.start | moment_date}}</p>
                         </div>
                         <div class="border-right">
                             <p>〜</p>
                         </div>
                         <div class="w-35 border-right">
-                            <input v-if="inputOpenId === plan.id" type="date" v-model="editPlan.end">
+                            <input
+                                v-if="inputOpenId === plan.id" type="date"
+                                v-model="editPlan.end"
+                            >
                             <p v-else>{{plan.end | moment_date}}</p>
                         </div>
                         <div class="w-35">
-                            <input v-if="inputOpenId === plan.id" type="text" v-model="editPlan.days" maxlength="7">
+                            <input
+                                v-if="inputOpenId === plan.id" maxlength="7"
+                                placeholder="日数" type="text" v-model="editPlan.days"
+                            >
                             <p v-else>{{plan.days}}</p>
                         </div>
                     </div>
@@ -47,11 +59,7 @@
                     </router-link>
                 </div>
                 <div class="p-2 border-top text-right">
-                    <span>
-                        <font-awesome-icon
-                            icon="sync-alt" class=""
-                        />
-                    </span>
+                    <font-awesome-icon icon="sync-alt" />
                     <span class="m-0">最終更新 : {{plan.updated_at | moment_datetime}}</span>
                 </div>
             </div>
@@ -66,9 +74,7 @@ import moment from 'moment'
 import { AppLoading } from '../parts'
 
 export default {
-    components: {
-        AppLoading
-    },
+    components: { AppLoading },
 
     data () {
         return {
