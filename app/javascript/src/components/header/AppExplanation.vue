@@ -5,13 +5,13 @@
             <section class="px-5">
                 <h3 class="text-info">★How to Use★</h3>
                 <div v-if="isPagePlanList">
-                    <img class="w-100" src="../../images/PagePlanList.png" alt="プラン一覧">
+                    <img class="w-100" src="../../images/PagePlanList.png" alt="解説画像">
                 </div>
                 <div v-if="isPageOutlineList">
-                    <img class="w-100" src="../../images/PageOutlineList.png" alt="アウトライン一覧">
+                    <img class="w-100" src="../../images/PageOutlineList.png" alt="解説画像">
                 </div>
                 <div v-if="isPageDetailList">
-                    <img class="w-100" src="../../images/PageDetailList.png" alt="ディテイル一覧">
+                    <img class="w-100" src="../../images/PageDetailList.png" alt="解説画像">
                 </div>
             </section>
         </modal>
@@ -29,10 +29,6 @@ export default {
     methods: {
         showModal() {
             this.$modal.show("modal--appExplanation")
-        },
-
-        hideModal() {
-            this.$modal.hide("modal--appExplanation")
         }
     }
 }
