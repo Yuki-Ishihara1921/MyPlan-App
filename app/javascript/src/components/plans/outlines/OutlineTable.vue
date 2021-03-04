@@ -181,6 +181,7 @@ export default {
 .icon--timesCircle {
     cursor: pointer;
 }
+
 .outlineTable {
     border: 5px solid aqua;
     &-datetime {
@@ -198,6 +199,7 @@ export default {
         text-align: center;
     }
 }
+
 .draggable {
     border: 5px solid red !important;
     & tbody {
@@ -207,6 +209,7 @@ export default {
         background: aliceblue !important;
     }
 }
+
 table {
     max-width: 800px;
     margin: auto;
@@ -218,9 +221,11 @@ table {
         vertical-align: middle;
     }
 }
+
 input, textarea {
     width: 100%;
 }
+
 p {
     margin: 0;
     word-break: break-word;
