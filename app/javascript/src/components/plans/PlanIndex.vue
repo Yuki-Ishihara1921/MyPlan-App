@@ -183,7 +183,7 @@ export default {
 <style lang='scss' scoped>
 .plan__container {
     max-width: 600px;
-    margin: 50px auto;
+    margin: 2rem auto;
 }
 
 .plan__header {
