@@ -3,9 +3,9 @@
         <section class="plan__container col-lg-6" v-for="plan in plans" :key="plan.id">
             <div class="plan__header" />
             <div class="plan__content">
-                <div class="plan__content--info">
-                    <div>
-                        <input v-if="inputOpenId === plan.id" type="text" v-model="editPlan.name" style="height: 50px;">
+                <div class="plan__content--infos">
+                    <div class="plan__content--infos--name">
+                        <input v-if="inputOpenId === plan.id" type="text" v-model="editPlan.name">
                         <h4 v-else class="text-primary">{{plan.name}}</h4>
                     </div>
                     <div class="d-flex w-100 border-top">
@@ -199,9 +199,16 @@ export default {
     border-radius: 10px;
     box-shadow: 0 2px 2px;
     background: floralwhite;
-    &--info {
+    &--infos {
         border: 5px solid gainsboro;
         text-align: center;
+        &--name input {
+            padding: 15px;
+            font-size: 20px;
+        }
+        &--name h4 {
+            margin: 15px;
+        }
     }
     &--commands {
         display: flex;
@@ -216,10 +223,10 @@ export default {
 input {
     width: 100%;
     height: 100%;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 h4, p {
-    margin: 10px 5px;
+    margin: 5px;
 }
 </style>
