@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn btn-secondary btn-sm rounded-circle" @click="showModal()">？</button>
+        <button-circle class="btn-secondary btn-sm" label="？" :clickFunction="() => showModal()" />
         <modal name="modal--appExplanation">
             <section class="px-5">
                 <h3 class="text-info">★How to Use★</h3>
@@ -19,7 +19,11 @@
 </template>
 
 <script>
+import { ButtonCircle } from '../parts'
+
 export default {
+    components: { ButtonCircle },
+
     props: {
         isPagePlanList: false,
         isPageOutlineList: false,

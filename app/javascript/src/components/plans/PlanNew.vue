@@ -1,8 +1,6 @@
 <template>
     <div>
-        <button class="planNewButton btn btn-info btn-lg rounded-circle" @click="showModal()">
-            ＋
-        </button>
+        <button-circle class="planNewButton btn-info btn-lg" label="＋" :clickFunction="() => showModal()" />
         <modal name="modal--newPlan">
             <form class="px-5 py-3">
                 <h4 class="text-primary text-center">新規作成</h4>
@@ -46,8 +44,11 @@
 
 <script>
 import axios from 'axios'
+import { ButtonCircle } from '../parts'
 
 export default {
+    components: { ButtonCircle },
+
     data () {
         return {
             newPlan: {
@@ -77,7 +78,7 @@ export default {
                     headers: { 'Authorization': this.$cookies.get('usertoken') }
                 })
                 .then(() => {
-                    this.hideModal()
+                    this.$modal.hide("modal--newPlan")
                     this.getPlans()
                     this.newPlan = { name: "", start: "", end: "", days: "" }
                     window.scrollTo({ top: 0 })

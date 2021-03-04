@@ -42,18 +42,22 @@
                     <router-link :to="{name: 'PageDetailList', params: {id: plan.id}}" class="mr-auto">
                         <button class="btn btn-success">詳細ページ</button>
                     </router-link>
-                    <button class="btn btn-info rounded-circle m-auto" v-if="inputOpenId!==plan.id" @click="openInput(plan.id)">
-                        <font-awesome-icon icon="edit" />
-                    </button>
-                    <button class="btn btn-danger rounded-circle m-auto" v-if="inputOpenId!==plan.id" @click="deletePlan(plan.id)">
-                        <font-awesome-icon icon="trash" />
-                    </button>
-                    <button class="btn btn-info rounded-circle m-auto" v-if="inputOpenId===plan.id" @click="updatePlan(plan.id)">
-                        <font-awesome-icon icon="check" />
-                    </button>
-                    <button class="btn btn-secondary rounded-circle m-auto" v-if="inputOpenId===plan.id" @click="closeInput()">
-                        ー
-                    </button>
+                    <button-circle
+                        v-if="inputOpenId !== plan.id" class="btn-info m-auto" :isIcon="true"
+                        label="edit" :clickFunction="() => openInput(plan.id)"
+                    />
+                    <button-circle
+                        v-if="inputOpenId !== plan.id" class="btn-danger m-auto" :isIcon="true"
+                        label="trash" :clickFunction="() => deletePlan(plan.id)"
+                    />
+                    <button-circle
+                        v-if="inputOpenId === plan.id" class="btn-info m-auto" :isIcon="true"
+                        label="check" :clickFunction="() => updatePlan(plan.id)"
+                    />
+                    <button-circle
+                        v-if="inputOpenId === plan.id" class="btn-secondary m-auto" :isIcon="false"
+                        label="ー" :clickFunction="() => closeInput()"
+                    />
                     <router-link :to="{name: 'PageOutlineList', params: {id: plan.id}}" class="ml-auto">
                         <button class="btn btn-primary">概要ページ</button>
                     </router-link>
@@ -71,10 +75,10 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
-import { AppLoading } from '../parts'
+import { AppLoading, ButtonCircle } from '../parts'
 
 export default {
-    components: { AppLoading },
+    components: { AppLoading, ButtonCircle },
 
     data () {
         return {
@@ -229,7 +233,7 @@ export default {
 input {
     width: 100%;
     height: 100%;
-    padding: 5px 10px;
+    padding: 5px;
 }
 
 h4, p {

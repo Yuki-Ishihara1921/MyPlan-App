@@ -1,24 +1,23 @@
 <template>
     <div>
-        <button
-            class="outlineButton -sort btn btn-info btn-lg rounded-circle"
-            id="sort" @click="changeIsDraggable()" :class="{'btn-danger': isDraggable}"    
-        >
-            ⇅
-        </button>
-        <button
-            class="outlineButton -add btn btn-primary btn-lg rounded-circle"
-            @click="createRow()"
-        >
-            ＋
-        </button>
+        <button-circle
+            :class="isDraggable ? 'outlineButton -sort btn-danger btn-lg' : 'outlineButton -sort btn-info btn-lg'"
+            label="⇅" :clickFunction="() => changeIsDraggable()"
+        />
+        <button-circle
+            class="outlineButton -add btn-success btn-lg"
+            label="＋" :clickFunction="() => createRow()"
+        />
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { ButtonCircle } from '../../parts'
 
 export default {
+    components: { ButtonCircle },
+
     props: {
         plan: {},
         isDraggable: false,
