@@ -1,11 +1,17 @@
 <template>
     <div>
-        <div class="detailButton -sort">
-            <button id="sort" class="btn btn-info btn-lg rounded-circle" @click="changeIsDraggable()" :class="{'btn-danger': isDraggable}">⇅</button>
-        </div>
-        <div class="detailButton -add">
-            <button class="btn btn-success btn-lg rounded-circle" @click="createRow()">＋</button>
-        </div>
+        <button
+            class="detailButton -sort btn btn-info btn-lg rounded-circle"
+            id="sort" @click="changeIsDraggable()" :class="{'btn-danger': isDraggable}"
+        >
+            ⇅
+        </button>
+        <button
+            class="detailButton -add btn btn-success btn-lg rounded-circle"
+            @click="createRow()"
+        >
+            ＋
+        </button>
     </div>
 </template>
 

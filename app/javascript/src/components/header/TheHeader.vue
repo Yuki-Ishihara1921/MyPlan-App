@@ -1,15 +1,13 @@
 <template>
     <header id="header">
         <slot name="pageName" />
-        <div class="header__menu">
-            <div class="d-flex">
-                <user-info />
-                <app-explanation
-                    :isPagePlanList="isPagePlanList"
-                    :isPageOutlineList="isPageOutlineList"
-                    :isPageDetailList="isPageDetailList"
-                />
-            </div>
+        <div class="header__menu d-flex">
+            <user-info />
+            <app-explanation
+                :isPagePlanList="isPagePlanList"
+                :isPageOutlineList="isPageOutlineList"
+                :isPageDetailList="isPageDetailList"
+            />
         </div>
     </header>
 </template>
@@ -37,6 +35,7 @@ header {
 }
 .header__menu {
     position: relative;
+    display: flex;
     margin-left: auto;
     padding: 0.5rem;
     border-left: 5px solid gainsboro;

@@ -1,11 +1,15 @@
 <template>
-    <b-dropdown class="mr-2" size="sm" right variant="info">
+    <b-dropdown class="mr-2" right size="sm" variant="info">
         <template #button-content>
             <font-awesome-icon icon="user" />
         </template>
-        <b-dropdown-item disabled><h5 class="m-0 text-center text-primary">{{username}}</h5></b-dropdown-item>
+        <b-dropdown-item disabled>
+            <h5 class="m-0 text-center text-primary">{{username}}</h5>
+        </b-dropdown-item>
         <b-dropdown-divider />
-        <b-dropdown-item href="#" class="text-center" @click="userSignout()">ログアウト</b-dropdown-item>
+        <b-dropdown-item href="#" class="text-center" @click="userSignout()">
+            ログアウト
+        </b-dropdown-item>
     </b-dropdown>
 </template>
 

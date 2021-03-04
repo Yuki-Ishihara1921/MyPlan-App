@@ -1,35 +1,29 @@
 <template>
     <div>
-        <div class="planNewButton">
-            <button class="btn btn-info btn-lg rounded-circle" @click="showModal()">＋</button>
-        </div>
+        <button class="planNewButton btn btn-info btn-lg rounded-circle" @click="showModal()">
+            ＋
+        </button>
         <modal name="modal--newPlan">
             <form class="px-5 py-3">
                 <h4 class="text-primary text-center">新規作成</h4>
                 <div class="form-group">
                     <label>● プラン名(必須)</label>
                     <input
-                        class="form-control w-100 m-auto"
-                        type="text"
-                        v-model="newPlan.name"
-                        placeholder="例：東京観光"
+                        class="form-control w-100 m-auto" placeholder="例：東京観光"
+                        type="text" v-model="newPlan.name"
                     >
                 </div>
                 <div class="form-group">
                     <label>● 日程</label>
                     <div class="d-flex">
                         <input
-                            class="form-control"
-                            type="date"
-                            v-model="newPlan.start"
-                            placeholder="Start"
+                            class="form-control" placeholder="Start"
+                            type="date" v-model="newPlan.start"
                         >
                         <p class="mx-2 my-auto">〜</p>
                         <input
-                            class="form-control"
-                            type="date"
-                            v-model="newPlan.end"
-                            placeholder="End"
+                            class="form-control" placeholder="End"
+                            type="date" v-model="newPlan.end"
                         >
                     </div>
                 </div>
@@ -37,11 +31,8 @@
                     <div class="form-group">
                         <label>● 日数</label>
                         <input
-                            class="form-control"
-                            type="text"
-                            v-model="newPlan.days"
-                            placeholder="例：2泊3日"
-                            maxlength="7"
+                            class="form-control" maxlength="7"
+                            placeholder="例：2泊3日" type="text" v-model="newPlan.days"
                         >
                     </div>
                     <div class="planNewButton-complete">
@@ -74,33 +65,28 @@ export default {
 
     methods: {
         createPlan () {
+            if (this.newPlan.name === "") {
+                alert("プラン名がありません。")
+            }
             const res = window.confirm("こちらの内容でプランを作成しますか？")
             if (!res) {
                 return false
             } else {
-                if (this.newPlan.name === "") {
-                    alert("プラン名がありません。")
-                } else {
-                    axios
-                    .post(`api/plans`, this.newPlan, {
-                        headers: { 'Authorization': this.$cookies.get('usertoken') }
-                    })
-                    .then(() => {
-                        this.hideModal()
-                        this.getPlans()
-                        this.newPlan = { name: "", start: "", end: "", days: "" }
-                        window.scrollTo({ top: 0 })
-                    })
-                }
+                axios
+                .post(`api/plans`, this.newPlan, {
+                    headers: { 'Authorization': this.$cookies.get('usertoken') }
+                })
+                .then(() => {
+                    this.hideModal()
+                    this.getPlans()
+                    this.newPlan = { name: "", start: "", end: "", days: "" }
+                    window.scrollTo({ top: 0 })
+                })
             }
         },
 
         showModal () {
             this.$modal.show("modal--newPlan")
-        },
-
-        hideModal () {
-            this.$modal.hide("modal--newPlan")
         }
     }
 }

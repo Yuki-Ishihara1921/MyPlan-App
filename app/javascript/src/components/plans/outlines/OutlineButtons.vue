@@ -1,11 +1,17 @@
 <template>
     <div>
-        <div class="outlineButton -sort">
-            <button id="sort" class="btn btn-info btn-lg rounded-circle" @click="changeIsDraggable()" :class="{'btn-danger': isDraggable}">⇅</button>
-        </div>
-        <div class="outlineButton -add">
-            <button class="btn btn-primary btn-lg rounded-circle" @click="createRow()">＋</button>
-        </div>
+        <button
+            class="outlineButton -sort btn btn-info btn-lg rounded-circle"
+            id="sort" @click="changeIsDraggable()" :class="{'btn-danger': isDraggable}"    
+        >
+            ⇅
+        </button>
+        <button
+            class="outlineButton -add btn btn-primary btn-lg rounded-circle"
+            @click="createRow()"
+        >
+            ＋
+        </button>
     </div>
 </template>
 

@@ -27,7 +27,7 @@
                     </td>
                     <td class="detailTable-datetime" @dblclick="openInputField(detail.id, 1)">
                         <input
-                            type="time" v-if="editRowId===detail.id && editColumnId===1"
+                            v-if="editRowId===detail.id && editColumnId===1" type="time"
                             v-model="editDetail.time" @blur="updateField(detail.id)"
                         >
                         <p v-else>{{detail.time | moment_time}}</p>
@@ -40,13 +40,17 @@
                         <p v-else>{{detail.schedule}}</p>
                     </td>
                     <td class="detailTable-note px-2" @dblclick="openInputField(detail.id, 3)">
-                        <textarea v-if="editRowId===detail.id && editColumnId===3"
-                        v-model="editDetail.note" @blur="updateField(detail.id)"
-                    />
+                        <textarea
+                            v-if="editRowId===detail.id && editColumnId===3"
+                            v-model="editDetail.note" @blur="updateField(detail.id)"
+                        />
                         <p v-else>{{detail.note}}</p>
                     </td>
                     <td class="detailTable-delete">
-                        <font-awesome-icon icon="times-circle" class="icon-times-style text-danger" @click="deleteRow(detail.id)" />
+                        <font-awesome-icon
+                            icon="times-circle" class="icon-times-style text-danger"
+                            @click="deleteRow(detail.id)"
+                        />
                     </td>
                 </tr>
             </draggable>
