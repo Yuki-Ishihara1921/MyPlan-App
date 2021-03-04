@@ -3,11 +3,11 @@
         <font-awesome-icon icon="user" class="icon--user" />
         <form>
             <auth-input
-                icon="envelope" type="email" placeholder="メールアドレス"
+                icon="envelope" placeholder="メールアドレス" type="email"
                 v-model="user.email" :authFunction="userSignIn"
             />
             <auth-input
-                icon="key" type="password" placeholder="パスワード"
+                icon="key" placeholder="パスワード" type="password"
                 v-model="user.password" :authFunction="userSignIn"
             />
         </form>
@@ -34,6 +34,7 @@ export default {
             isSignInLoading: false
         }
     },
+
     methods: {
         userSignIn () {
             this.isSignInLoading = true
@@ -58,8 +59,8 @@ export default {
                 this.$router.push({ name: 'PagePlanList' })
             })
             .catch((error) => {
-                this.isSignInLoading = false
                 alert("ログインできませんでした。入力内容が正しいか、通信環境をご確認下さい。")
+                this.isSignInLoading = false
                 throw new Error(error)
             })
         }

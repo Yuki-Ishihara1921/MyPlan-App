@@ -1,9 +1,12 @@
 <template>
     <div class="form-group d-flex">
-        <font-awesome-icon :icon="icon" class="icon--auth" />
+        <font-awesome-icon class="icon--auth" :icon="icon" />
         <input
-            class="form-control" :type="type" :placeholder="placeholder"
-            :value="value" @input="$emit('input', $event.target.value)"
+            class="form-control"
+            :placeholder="placeholder"
+            :type="type"
+            :value="value"
+            @input="$emit('input', $event.target.value)"
             @keyup.enter="authFunction()"
         >
     </div>
@@ -13,8 +16,8 @@
 export default {
     props: {
         icon: "",
-        type: "",
         placeholder: "",
+        type: "",
         value: "",
         authFunction: Function
     }

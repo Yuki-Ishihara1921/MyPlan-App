@@ -2,28 +2,28 @@
     <div class="signUp">
         <a href="#" @click.prevent.stop="showModal()">アカウント登録はこちら</a>
         <modal name="modal--signUp">
-            <div class="px-5">
+            <section class="px-5">
                 <h4 class="m-3 text-primary">アカウント登録</h4>
                 <form>
                     <auth-input
-                        icon="user-circle" type="text" placeholder="ユーザー名"
+                        icon="user-circle" placeholder="ユーザー名" type="text"
                         v-model="newUser.name" :authFunction="userSignUp"
                     />
                     <auth-input
-                        icon="envelope" type="email" placeholder="メールアドレス"
+                        icon="envelope" placeholder="メールアドレス" type="email"
                         v-model="newUser.email" :authFunction="userSignUp"
                     />
                     <auth-input
-                        icon="key" type="password" placeholder="パスワード (8文字以上)"
+                        icon="key" placeholder="パスワード (8文字以上)" type="password"
                         v-model="newUser.password" :authFunction="userSignUp"
                     />
                     <auth-input
-                        icon="key" type="password" placeholder="パスワード (確認用)"
+                        icon="key" placeholder="パスワード (確認用)" type="password"
                         v-model="newUser.password_confirmation" :authFunction="userSignUp"
                     />
                     <button class="btn btn-success m-auto" @click="userSignUp()">登録</button>
                 </form>
-            </div>
+            </section>
         </modal>
         <app-loading v-if="isSignUpLoading" text="アカウント登録中..." />
     </div>
@@ -32,8 +32,8 @@
 <script>
 import axios from 'axios'
 import AuthInput from './AuthInput'
-import { isValidEmailFormat } from './authFunctions'
 import { AppLoading } from '../parts'
+import { isValidEmailFormat } from './authFunctions'
 
 export default {
     components: { AuthInput, AppLoading },
@@ -49,6 +49,7 @@ export default {
             isSignUpLoading: false
         }
     },
+
     methods: {
         userSignUp () {
             const user = this.newUser
@@ -87,8 +88,8 @@ export default {
                         }
                     })
                     .catch((error) => {
-                        this.isSignUpLoading = false
                         alert("アカウントが登録されませんでした。通信環境をご確認下さい。")
+                        this.isSignUpLoading = false
                         throw new Error(error)
                     })
                 }
