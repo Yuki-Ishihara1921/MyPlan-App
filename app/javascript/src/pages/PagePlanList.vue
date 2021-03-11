@@ -55,7 +55,6 @@ export default {
             })
             .catch(() => {
                 this.isLoading = false
-                alert("データを取得できませんでした。ログインページに戻ります。")
                 this.$router.push({ name: 'PageAuth' })
             })
         }
